@@ -1,0 +1,47 @@
+**********RAW FILES*********
+Except for the height retrace in the SKPM files,
+the trace and retrace are saved in the raw data files. 
+
+**********RAW FILES*********
+MAPIFilm12_0016 is a 7x7 um image that contains the ROI. 
+
+MAPIFilm12SKPM_0016 is a 4x4 um SKPM image taken with a 90 deg scan angle. 
+
+MAPIFilm12SKPM_0017 is a 4x4 um SKPM image taken with a 0 deg scan angle.
+
+MAPIFilm12cAFM_0004 is a 4x4 um cAFM image taken with a 90 deg scan angle. 
+
+MAPIFilm12cAFM_0006 is a 4x4 um cAFM image taken with a 0 deg scan angle. 
+
+**********TXT FILES*********
+R indicates retrace. 
+All images are on the same scale and flattened the same way. "Raw" refers to unflattened image,
+but its offset and range were adjusted to match. 
+
+SKPM_0017PoR: Flattened 1 image of potential nap retrace of MAPIFilm12SKPM_0017 
+SKPM_0016PoR: Flattened 1 image of potential nap retrace of MAPIFilm12SKPM_0016
+
+SKPM_0017HtR: Flattened 1 image of height retrace.
+SKPM_0016HtR: " " "
+
+SKPM_0017AmR: Raw image of amplitude retrace.
+SKPM_0016AmR: " " "
+
+SKPM_0017PhR: Raw image of phase retrace.
+SKPM_0016PhR: " " "
+
+cAFM_0004HtR: Flattened 1 image of height retrace. 
+cAFM_0006HtR: " " "
+
+cAFM_0004DfR: Raw image of deflection retrace. 
+cAFM_0006DfR: " " " 
+
+cAFM_0004ZSR: Raw image of Z sensor retrace. 
+cAFM_0006ZSR: " " "
+
+Sample Voltage: 2V
+Tip Voltage: 0V 
+cAFM_0004CuR: Raw image of Current retrace. 
+cAFM_0006CuR: " " "
+
+ 
