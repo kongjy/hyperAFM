@@ -2,6 +2,8 @@ from igor.binarywave import load
 import os
 import matplotlib.pyplot as plt
 from scipy.signal import detrend
+from skimage import feature
+from skimage import transform
 
 def load_ibw(path, flatten=True):
     """
@@ -24,12 +26,24 @@ def load_ibw(path, flatten=True):
         
     return data
 
-path = 'DIRECT\\SKPMcAFM_set1\\'
-file_list = os.listdir(path)
+def align_images(master_data, target_data):
+    """
+    Given a master image, this function aligns the target image to this master 
+    data.
+    
+    """
+    target_shifted = target_data.copy()
+    master_topo = master_data[:,:,0]
+    target_topo = target_data[:,:,0]
 
-
-data = load_ibw(path+file_list[1], flatten=True)
-
-plt.figure()
-plt.imshow(data[:,:,0])
-plt.show()
+    # Get the shift using phase correlation.
+    shift,e,b = feature.register_translation(master_topo, target_topo)
+    
+    # Shift the data.
+    tform = transform.SimilarityTransform(translation=-shift[::-1])
+    for i in range(target_shifted.shape[2]):
+        print i
+        target_shifted[:,:,i] = transform.warp(target_shifted[:,:,i], tform, preserve_range=True)
+    
+    return target_shifted
+    
