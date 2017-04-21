@@ -1,6 +1,4 @@
 from igor.binarywave import load
-import os
-import matplotlib.pyplot as plt
 from scipy.signal import detrend
 from skimage import feature
 from skimage import transform
@@ -26,6 +24,17 @@ def load_ibw(path, flatten=True):
         
     return data
 
+
+def load_hypir(path):
+    """
+    """
+    
+    
+    
+    
+    return
+
+
 def align_images(master_data, target_data):
     """
     Given a master image, this function aligns the target image to this master 
@@ -41,9 +50,11 @@ def align_images(master_data, target_data):
     
     # Shift the data.
     tform = transform.SimilarityTransform(translation=-shift[::-1])
+    
     for i in range(target_shifted.shape[2]):
-        print i
         target_shifted[:,:,i] = transform.warp(target_shifted[:,:,i], tform, preserve_range=True)
     
     return target_shifted
+
+
     
