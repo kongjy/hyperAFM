@@ -2,6 +2,9 @@ from igor.binarywave import load
 from scipy.signal import detrend
 from skimage import feature
 from skimage import transform
+import csv
+import numpy as np
+import matplotlib.pyplot as plt
 
 def load_ibw(path, flatten=True):
     """
@@ -25,14 +28,46 @@ def load_ibw(path, flatten=True):
     return data
 
 
-def load_hypir(path):
+def load_hypir(path, sum_selection=[]):
     """
     """
     
+    path_addrs = path.split('\\')
+    file_name = path_addrs[-1]
+    directory = '\\'.join(path_addrs[:-1])+'\\'
     
+    print file_name
+    print directory
     
+    parms, channels =  read_anfatec_params('..\\test_data\\Film5_0049.txt')
     
-    return
+    wavelength_data = np.loadtxt('..\\test_data\\'+channels[0]['FileNameWavelengths'])
+    x_pixel = int(parms['xPixel'])
+    y_pixel = int(parms['yPixel'])
+    wavenumber_length = wavelength_data.shape[0]
+
+    if sum_selection:
+        image_shape = (x_pixel,y_pixel)
+    else:
+        image_shape = (x_pixel,y_pixel,wavenumber_length)
+        
+    image = np.zeros(image_shape)
+    
+    pifm_scaling = float(channels[0]['Scale'])
+    data = np.fromfile('..\\test_data\\'+channels[0]['FileName'],dtype=int)
+    
+    for i,line in enumerate(np.split(data,256)):
+    
+        for j, pixel in enumerate(np.split(line,256)):
+            
+            if not sum_selection:
+                image[j,i,:] = (pixel*pifm_scaling)
+            else:
+                image[j,i] = pifm_scaling*pixel[sum_selection[0]:sum_selection[1]].sum()
+    
+
+#    image *= pifm_scaling
+    return image
 
 
 def align_images(master_data, target_data):
@@ -57,4 +92,69 @@ def align_images(master_data, target_data):
     return target_shifted
 
 
+
+def read_anfatec_params(path):
+    """
+    Reads in an ANFATEC parameter file. This file is produced by the Molecular
+    Vista PiFM system and describes all parameters need to interpret the data 
+    files produced when the data is saved.
     
+    Input:
+        path: a path to the ANFATEC parameter file.
+        
+    Output:
+        file_descriptions: A list of dictionaries, with each item in the list 
+            corresponding to a channel that was recorded by the PiFM.
+        scan_params: A dictionary of non-channel specific scan parameters.
+        
+    """
+    
+    file_descriptions = []
+    scan_params = {}
+    parameters = {}
+    inside_description = False
+
+    with open(path,  'rb') as csvfile:
+        reader = csv.reader(csvfile,delimiter='\t')
+        for i,row in enumerate(reader): 
+            
+            if row:
+                
+                # First line of the file is useless. We tell the reader to stop at ';'
+                if row[0] ==';ANFATEC Parameterfile':
+                    continue
+                if row[0][0] == ';':
+                    break
+                
+                # This string indicates that we have reached a channel description.
+                if row[0].endswith('Begin'):
+                    inside_description = True
+                    continue
+                   
+                # Here we handle the unicode characters and form our key value pairs
+                new_row =  row[0].replace(' ','')
+                split_row = new_row.split(':')
+                split_row[-1] = split_row[-1].decode('unicode-escape')  
+                
+                # We want to save the channel parameters to a separate structure.
+                if inside_description:
+                    parameters[split_row[0]] = split_row[-1]
+                else:
+                    scan_params[split_row[0]] = split_row[-1]
+                
+                if row[0].endswith('End'):
+                    del parameters[row[0]]
+                    file_descriptions.append(parameters)
+                    parameters = {}
+                    inside_description = False
+                    
+        csvfile.close()
+    
+    return scan_params, file_descriptions
+                
+       
+     
+#image = load_hypir('..\\test_data\\Film5_0049.txt', sum_selection=[0,100])
+    
+
+
