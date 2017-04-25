@@ -5,6 +5,7 @@ from skimage import transform
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 def load_ibw(path, flatten=True):
     """
@@ -28,56 +29,52 @@ def load_ibw(path, flatten=True):
     return data
 
 
-def load_hypir(path, sum_selection=[]):
+class HypirImage():
     """
     """
+    def __init__(self, path):
+        
+        
+        self.channel_names = []
+        path_addrs = path.split('\\')
+        file_name = path_addrs[-1]
+        directory = '\\'.join(path_addrs[:-1])+'\\'
+        
+        self.parms, channels =  read_anfatec_params(directory+file_name)
     
-    channel_names = []
-    path_addrs = path.split('\\')
-    file_name = path_addrs[-1]
-    directory = '\\'.join(path_addrs[:-1])+'\\'
+        self.wavelength_data = np.loadtxt(directory+channels[0]['FileNameWavelengths'])
+        
+        x_pixel = int(self.parms['xPixel'])
+        y_pixel = int(self.parms['yPixel'])
+        
+        wavenumber_length = self.wavelength_data.shape[0]
     
-    parms, channels =  read_anfatec_params(directory+file_name)
-
-    wavelength_data = np.loadtxt(directory+channels[0]['FileNameWavelengths'])
-    x_pixel = int(parms['xPixel'])
-    y_pixel = int(parms['yPixel'])
-    wavenumber_length = wavelength_data.shape[0]
-
-    if sum_selection:
-        image_shape = (x_pixel,y_pixel)
-    else:
         image_shape = (x_pixel,y_pixel,wavenumber_length)
-        
-    hypir_image = np.zeros(image_shape)
-    
-    pifm_scaling = float(channels[0]['Scale'])
-    data = np.fromfile(directory+channels[0]['FileName'],dtype=int)
-    
-    for i,line in enumerate(np.split(data,256)):
-    
-        for j, pixel in enumerate(np.split(line,256)):
             
-            if not sum_selection:
-                hypir_image[j,i,:] = (pifm_scaling*pixel)
-            else:
-                hypir_image[j,i] = pifm_scaling*pixel[sum_selection[0]:sum_selection[1]].sum()
-                
-    channel_image = np.zeros((x_pixel, y_pixel, len(channels[1:])))
-
-    for i, channel in enumerate(channels[1:]):
+        hypir_image = np.zeros(image_shape)
         
-        channel_names.append(channel['Caption'])
-        data = np.fromfile(directory+channel['FileName'],dtype=int)
-        scaling = float(channel['Scale'])
+        pifm_scaling = float(channels[0]['Scale'])
+        data = np.fromfile(directory+channels[0]['FileName'],dtype=int)
         
         for i,line in enumerate(np.split(data,256)):
             for j, pixel in enumerate(np.split(line,256)):
-                    channel_image[j,i,:] = (scaling*pixel)
-
+                    hypir_image[j,i] = pifm_scaling*pixel
+                    
+        channel_data = np.zeros((x_pixel, y_pixel, len(channels[1:])))
     
+        for i, channel in enumerate(channels[1:]):
+            
+            self.channel_names.append(channel['Caption'])
+            data = np.fromfile(directory+channel['FileName'],dtype=int)
+            scaling = float(channel['Scale'])
+            
+            for i,line in enumerate(np.split(data,256)):
+                for j, pixel in enumerate(np.split(line,256)):
+                        channel_data[j,i,:] = (scaling*pixel)
 
-    return hypir_image, channel_image, channel_names
+        self.hypir_image = hypir_image
+        self.channel_data = channel_data
+
 
 
 def align_images(master_data, target_data):
@@ -161,10 +158,3 @@ def read_anfatec_params(path):
         csvfile.close()
     
     return scan_params, file_descriptions
-                
-       
-     
-image1, image2, names = load_hypir('..\\test_data\\Film5_0049.txt')
-    
-
-
