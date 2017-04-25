@@ -32,16 +32,14 @@ def load_hypir(path, sum_selection=[]):
     """
     """
     
+    channel_names = []
     path_addrs = path.split('\\')
     file_name = path_addrs[-1]
     directory = '\\'.join(path_addrs[:-1])+'\\'
     
-    print file_name
-    print directory
-    
-    parms, channels =  read_anfatec_params('..\\test_data\\Film5_0049.txt')
-    
-    wavelength_data = np.loadtxt('..\\test_data\\'+channels[0]['FileNameWavelengths'])
+    parms, channels =  read_anfatec_params(directory+file_name)
+
+    wavelength_data = np.loadtxt(directory+channels[0]['FileNameWavelengths'])
     x_pixel = int(parms['xPixel'])
     y_pixel = int(parms['yPixel'])
     wavenumber_length = wavelength_data.shape[0]
@@ -51,23 +49,35 @@ def load_hypir(path, sum_selection=[]):
     else:
         image_shape = (x_pixel,y_pixel,wavenumber_length)
         
-    image = np.zeros(image_shape)
+    hypir_image = np.zeros(image_shape)
     
     pifm_scaling = float(channels[0]['Scale'])
-    data = np.fromfile('..\\test_data\\'+channels[0]['FileName'],dtype=int)
+    data = np.fromfile(directory+channels[0]['FileName'],dtype=int)
     
     for i,line in enumerate(np.split(data,256)):
     
         for j, pixel in enumerate(np.split(line,256)):
             
             if not sum_selection:
-                image[j,i,:] = (pixel*pifm_scaling)
+                hypir_image[j,i,:] = (pifm_scaling*pixel)
             else:
-                image[j,i] = pifm_scaling*pixel[sum_selection[0]:sum_selection[1]].sum()
+                hypir_image[j,i] = pifm_scaling*pixel[sum_selection[0]:sum_selection[1]].sum()
+                
+    channel_image = np.zeros((x_pixel, y_pixel, len(channels[1:])))
+
+    for i, channel in enumerate(channels[1:]):
+        
+        channel_names.append(channel['Caption'])
+        data = np.fromfile(directory+channel['FileName'],dtype=int)
+        scaling = float(channel['Scale'])
+        
+        for i,line in enumerate(np.split(data,256)):
+            for j, pixel in enumerate(np.split(line,256)):
+                    channel_image[j,i,:] = (scaling*pixel)
+
     
 
-#    image *= pifm_scaling
-    return image
+    return hypir_image, channel_image, channel_names
 
 
 def align_images(master_data, target_data):
@@ -154,7 +164,7 @@ def read_anfatec_params(path):
                 
        
      
-#image = load_hypir('..\\test_data\\Film5_0049.txt', sum_selection=[0,100])
+image1, image2, names = load_hypir('..\\test_data\\Film5_0049.txt')
     
 
 
