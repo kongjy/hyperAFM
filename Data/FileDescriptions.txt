@@ -1,0 +1,19 @@
+********
+Set2Hyper0 = Film12topo_0026
+Set2Hyper1 = Film12topo_0058
+Set2Hyper2 = Film12topo_0059
+Set2Hyper3 = Film12topo_0060
+
+********
+Filenamed as topo is misleading! All are hyperspectral images, i.e images that contain a IR spectrum at each pixel. 
+
+256x256 pixels
+Film12topo_0026 was taken April 6. Integration time 300 ms, see corresponding txt file for more information. Scan angle 0 deg
+Film12topo_0058 taken April 9. Integrationtime 300 ms, seee corr. txt file for more information. Scan angle 3 deg 
+
+
+I took these as a control/want to make sure the two hyperspectral images don't look different
+depending on the scan angle. 
+128x128 pixels
+Film12topo_0059 taken April 9. 0 deg scan angle
+Film12topo_0060 taken April 9. 90 deg scan angle 
