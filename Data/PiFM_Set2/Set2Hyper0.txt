@@ -1,0 +1,74 @@
+
+;ANFATEC Parameterfile
+
+Version : 1.12
+Date: 04/07/2017
+Time : 02:22:09 PM
+UserName : Jess
+
+SetPoint         : 80
+FeedBackModus    : hyPIR F2D1s
+Ki               : 800
+Kp               : 0
+
+XScanRange : 4
+YScanRange : 4
+XPhysUnit  : µm
+YPhysUnit  : µm
+Speed      : 0.008691 ; lines/sec
+Angle      : 0
+xPixel     : 256
+yPixel     : 256
+yCenter    : -3.9e-6
+xCenter    : -3.48876953125e-6
+overscan[%]: 5
+
+LockInFreq         : 1587034.625
+LockInFreqPhysUnit : Hz
+LockInAmpl         : 0.0981641405342687
+LockInAmplPhysUnit : V
+LockInAmplPhysUnit : V
+
+FileDescBegin
+FileName : Set2Hyper0.hyPIRFwd.int
+Caption  : hyPIRFwd
+Scale    : 2.52922162380376e-11
+PhysUnit : V
+Offset   : -0.00960975140333176
+FileDescEnd
+FileDescEnd
+
+FileDescBegin
+FileName : Set2Hyper0.TopographyFwd.int
+Caption  : TopographyFwd
+Scale    : 1.37181008180358e-16
+PhysUnit : m
+Offset   : -1.51938310155586e-7
+FileDescEnd
+FileDescEnd
+
+FileDescBegin
+FileName : Set2Hyper0.AFMHead-ZFwd.int
+Caption  : AFMHead-ZFwd
+Scale    : 1.12938252938897e-17
+PhysUnit : m
+Offset   : 3.39737127319495e-11
+FileDescEnd
+FileDescEnd
+
+FileDescBegin
+FileName : Set2Hyper0.Scanner-ZFwd.int
+Caption  : Scanner-ZFwd
+Scale    : 1.3764718297856e-16
+PhysUnit : m
+Offset   : -1.52431069100345e-7
+FileDescEnd
+FileDescEnd
+
+FileDescBegin
+FileName : Set2Hyper0.PhaseFwd.int
+Caption  : PhaseFwd
+Scale    : 2.9525720979251e-8
+PhysUnit : °
+Offset   : -20.5780005455017
+FileDescEnd
