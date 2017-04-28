@@ -1,0 +1,15 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Apr 28 11:40:43 2017
+
+@author: Jessica
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import signal as sps
+
+Spectrum1=np.genfromtxt('../Data/PointSpectra/Spectrum1.txt', delimiter='',
+                     skip_header=1)
