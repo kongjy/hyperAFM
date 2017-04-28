@@ -36,13 +36,11 @@ class HypirImage():
         
         
         self.channel_names = []
-        path_addrs = path.split('\\')
-        file_name = path_addrs[-1]
-        directory = '\\'.join(path_addrs[:-1])+'\\'
-        
-        self.parms, channels =  read_anfatec_params(directory+file_name)
+        full_path = os.path.realpath(path)
+        directory = os.path.dirname(full_path)
+        self.parms, channels =  read_anfatec_params(full_path)
     
-        self.wavelength_data = np.loadtxt(directory+channels[0]['FileNameWavelengths'])
+        self.wavelength_data = np.loadtxt(os.path.join(directory,channels[0]['FileNameWavelengths']))
         
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
@@ -54,7 +52,7 @@ class HypirImage():
         hypir_image = np.zeros(image_shape)
         
         pifm_scaling = float(channels[0]['Scale'])
-        data = np.fromfile(directory+channels[0]['FileName'],dtype=int)
+        data = np.fromfile(os.path.join(directory,channels[0]['FileName']),dtype=int)
         
         for i,line in enumerate(np.split(data,256)):
             for j, pixel in enumerate(np.split(line,256)):
@@ -65,7 +63,7 @@ class HypirImage():
         for i, channel in enumerate(channels[1:]):
             
             self.channel_names.append(channel['Caption'])
-            data = np.fromfile(directory+channel['FileName'],dtype=int)
+            data = np.fromfile(os.path.join(directory,channel['FileName']),dtype=int)
             scaling = float(channel['Scale'])
             
             for i,line in enumerate(np.split(data,256)):
