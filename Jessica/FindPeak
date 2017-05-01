@@ -7,9 +7,15 @@ Created on Fri Apr 28 11:40:43 2017
 """
 
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from scipy import signal as sps
+import peakutils
 
-Spectrum1=np.genfromtxt('../Data/PointSpectra/Spectrum1.txt', delimiter='',
+
+spectrum=np.genfromtxt('../Data/PointSpectra/Spectrum1.txt', delimiter='',
                      skip_header=1)
+
+def FindPeak(spectrum, thres, min_dist):
+    peakindices = peakutils.indexes(spectrum[:,1], thres=thres,
+                                    min_dist=min_dist)
+
+
+    
