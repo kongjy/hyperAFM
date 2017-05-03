@@ -20,6 +20,7 @@ def load_ibw(path, flatten=True):
     """
     data = load(path)['wave']['wData']
 
+#What if flatten is false? Doesn't this do nothing? 
     # Flatten the topography data by extracting any linear response.
     if flatten == True:   
         flat_topo = data.copy()
@@ -79,6 +80,8 @@ def align_images(master_data, target_data):
     """
     Given a master image, this function aligns the target image to this master 
     data.
+    
+    What format(s) do master and target data have to be in? 
     
     """
     target_shifted = target_data.copy()
@@ -160,6 +163,15 @@ def read_anfatec_params(path):
 def load_hypir_numpy(folder_path):
     """
     Loads a hypir image that has previously been saved into a numpy format.
+    INPUT: Folder containing each line of a hyperspectral image, which are 
+    in .npy format. 
+    
+    OUTPUT: Three dimensional numpy array with the first two dimensions
+    corresponding to x, y space and the third to the IR spectra obtained. 
+    The third number indicates how many data points there are in 
+    a spectrum, but does not contain information about the wavenumber. 
+    **For our datasets only: the spectra were taken from 760 to 1875 cm-1
+    with a 5 cm-1 spacing. 
     """
     files = os.listdir(folder_path)
     image_list = []
