@@ -20,7 +20,6 @@ def load_ibw(path, flatten=True):
     """
     data = load(path)['wave']['wData']
 
-#What if flatten is false? Doesn't this do nothing? 
     # Flatten the topography data by extracting any linear response.
     if flatten == True:   
         flat_topo = data.copy()
@@ -30,7 +29,7 @@ def load_ibw(path, flatten=True):
     return data
 
 
-class HypirImage():
+class HyperImage():
     """
     """
     def __init__(self, path):
@@ -50,14 +49,14 @@ class HypirImage():
     
         image_shape = (x_pixel,y_pixel,wavenumber_length)
             
-        hypir_image = np.zeros(image_shape)
+        hyper_image = np.zeros(image_shape)
         
         pifm_scaling = float(channels[0]['Scale'])
         data = np.fromfile(os.path.join(directory,channels[0]['FileName']),dtype=int)
         print data.shape
         for i,line in enumerate(np.split(data,256)):
             for j, pixel in enumerate(np.split(line,256)):
-                    hypir_image[j,i] = pifm_scaling*pixel
+                    hyper_image[j,i] = pifm_scaling*pixel
                     
         channel_data = np.zeros((x_pixel, y_pixel, len(channels[1:])))
     
@@ -71,7 +70,7 @@ class HypirImage():
                 for j, pixel in enumerate(np.split(line,256)):
                         channel_data[j,i,:] = (scaling*pixel)
 
-        self.hypir_image = hypir_image
+        self.hyper_image = hyper_image
         self.channel_data = channel_data
 
 
@@ -113,6 +112,7 @@ def read_anfatec_params(path):
     Output:
         file_descriptions: A list of dictionaries, with each item in the list 
             corresponding to a channel that was recorded by the PiFM.
+            
         scan_params: A dictionary of non-channel specific scan parameters.
         
     """
@@ -160,9 +160,9 @@ def read_anfatec_params(path):
     
     return scan_params, file_descriptions
 
-def load_hypir_numpy(folder_path):
+def load_hyper_numpy(folder_path):
     """
-    Loads a hypir image that has previously been saved into a numpy format.
+    Loads a hyper image that has previously been saved into a numpy format.
     INPUT: Folder containing each line of a hyperspectral image, which are 
     in .npy format. 
     
