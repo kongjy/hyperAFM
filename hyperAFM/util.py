@@ -53,7 +53,7 @@ class HypirImage():
         
         pifm_scaling = float(channels[0]['Scale'])
         data = np.fromfile(os.path.join(directory,channels[0]['FileName']),dtype=int)
-        
+        print data.shape
         for i,line in enumerate(np.split(data,256)):
             for j, pixel in enumerate(np.split(line,256)):
                     hypir_image[j,i] = pifm_scaling*pixel
@@ -119,7 +119,7 @@ def read_anfatec_params(path):
     parameters = {}
     inside_description = False
 
-    with open(path,  'rb') as csvfile:
+    with open(path,  'r') as csvfile:
         reader = csv.reader(csvfile,delimiter='\t')
         for i,row in enumerate(reader): 
             
@@ -156,3 +156,16 @@ def read_anfatec_params(path):
         csvfile.close()
     
     return scan_params, file_descriptions
+
+def load_hypir_numpy(folder_path):
+    """
+    Loads a hypir image that has previously been saved into a numpy format.
+    """
+    files = os.listdir(folder_path)
+    image_list = []
+    
+    for i, file_name in enumerate(files):
+        path = os.path.join(folder_path, file_name)
+        image_list.append(np.load(path))
+        
+    return np.column_stack(tuple(image_list))

@@ -39,24 +39,31 @@ def sum_around_peak(hypir_image, peak_loc, width):
             
     return result_array
 
+s = util.load_hypir_numpy('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\hyperAFM\\Film12topo_0058_numpy\\')
 
-hypir_data = util.HypirImage('..\\test_data\\Film5_0049.txt')
-hypir_image = np.rot90(hypir_data.hypir_image)[::-1,:,:]
-topo_image = hypir_data.channel_data[:,:,0]
-peaks, spectrum = get_hypir_peaks(hypir_image,.2)
 
+#hypir_data = util.HypirImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film12topo_0058.txt')
+#hypir_image = hypir_data.hypir_image
+#saver = np.split(hypir_image,256,axis=1)
+#for i, row in enumerate(saver):
+#    
+#np.save('Film12topo_0058'+'_line'+str(i),row)
+#hypir_image = np.rot90(hypir_data.hypir_image)[::-1,:,:]
+#topo_image = hypir_data.channel_data[:,:,0]
+#peaks, spectrum = get_hypir_peaks(hypir_image,.2)
+#
+##plt.figure()
+##plt.imshow(topo_image, cmap='gnuplot')
+##plt.show()
 #plt.figure()
-#plt.imshow(topo_image, cmap='gnuplot')
+#plt.plot(spectrum)
+#plt.plot(peaks, spectrum[peaks], 'ro')
 #plt.show()
-plt.figure()
-plt.plot(spectrum)
-plt.plot(peaks, spectrum[peaks], 'ro')
-plt.show()
-
-im_number=0
-fig, axs = plt.subplots(nrows=2,ncols=5)
-for i in range(2):
-    for j in range(5):
-        axs[i,j].imshow(sum_around_peak(hypir_image, peaks[im_number], 25), cmap='cubehelix')
-        im_number+=1
-plt.show()
+#
+#im_number=0
+#fig, axs = plt.subplots(nrows=2,ncols=5)
+#for i in range(2):
+#    for j in range(5):
+#        axs[i,j].imshow(sum_around_peak(hypir_image, peaks[im_number], 25), cmap='cubehelix')
+#        im_number+=1
+#plt.show()
