@@ -1,10 +1,10 @@
 import util
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import medfilt, savgol_filter, argrelmax
+from scipy.signal import medfilt, savgol_filter, argrelmax, detrend
+from sklearn.cluster import KMeans
 
-
-def get_hypir_peaks(hypir_image, threshold):
+def get_hyper_peaks(hypir_image, threshold):
     """
     """
     
@@ -39,31 +39,43 @@ def sum_around_peak(hypir_image, peak_loc, width):
             
     return result_array
 
-s = util.load_hypir_numpy('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\hyperAFM\\Film12topo_0058_numpy\\')
+def kmeans_hyper(hyper_image, peak_locs, n_clusters):
+    """
+    """
+
+    features = []
+    for peak in peak_locs:
+        img = sum_around_peak(s, peak, 25)
+        img = detrend(img)
+        features.append(img.ravel())
+        
+    wah = np.column_stack(tuple(features))
+    
+    kmeans = KMeans(n_clusters=n_clusters).fit(wah)
+    
+    label_image = kmeans.labels_.reshape((256,256))
+
+    kmeans_spectra = []
+    for cluster in range(n_clusters):
+        spectra = s[label_image == cluster]
+        spectrum = spectra.mean(axis=0)
+        kmeans_spectra.append(spectrum)
+
+    return label_image, kmeans_spectra
+
+s = util.load_hyper_numpy('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\Film12topo_0058_numpy\\')
+s = np.rot90(s,k=-1)
+peaks, spectrum = get_hyper_peaks(s, .1)
+
+label_image, kmeans_spectra = kmeans_hyper(s, peaks, 6)
+
+plt.figure()
+for spectrum in kmeans_spectra:
+    plt.plot(spectrum)
+plt.show()
+
+plt.figure()
+plt.imshow(label_image)
+plt.show()
 
 
-#hypir_data = util.HypirImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film12topo_0058.txt')
-#hypir_image = hypir_data.hypir_image
-#saver = np.split(hypir_image,256,axis=1)
-#for i, row in enumerate(saver):
-#    
-#np.save('Film12topo_0058'+'_line'+str(i),row)
-#hypir_image = np.rot90(hypir_data.hypir_image)[::-1,:,:]
-#topo_image = hypir_data.channel_data[:,:,0]
-#peaks, spectrum = get_hypir_peaks(hypir_image,.2)
-#
-##plt.figure()
-##plt.imshow(topo_image, cmap='gnuplot')
-##plt.show()
-#plt.figure()
-#plt.plot(spectrum)
-#plt.plot(peaks, spectrum[peaks], 'ro')
-#plt.show()
-#
-#im_number=0
-#fig, axs = plt.subplots(nrows=2,ncols=5)
-#for i in range(2):
-#    for j in range(5):
-#        axs[i,j].imshow(sum_around_peak(hypir_image, peaks[im_number], 25), cmap='cubehelix')
-#        im_number+=1
-#plt.show()
