@@ -5,6 +5,7 @@ from scipy.signal import medfilt, savgol_filter, argrelmax, detrend
 from sklearn.cluster import KMeans
 from sklearn import preprocessing
 from sklearn.mixture import GaussianMixture
+
 def get_hyper_peaks(hypir_image, threshold):
     """
     """
@@ -26,6 +27,7 @@ def get_hyper_peaks(hypir_image, threshold):
     
     return peak_locs, spectrum
 
+
 def sum_around_peak(hypir_image, peak_loc, width):
     """
     """
@@ -40,6 +42,7 @@ def sum_around_peak(hypir_image, peak_loc, width):
             
     return result_array
 
+
 def kmeans_hyper(hyper_image, peak_locs, n_clusters):
     """
     """
@@ -53,7 +56,7 @@ def kmeans_hyper(hyper_image, peak_locs, n_clusters):
     wah = preprocessing.scale(wah)
     kmeans = KMeans(n_clusters=n_clusters).fit(wah)
     
-    label_image = kmeans.labels_.reshape((256,256))
+    label_image = kmeans.labels_.reshape(hyper_image.shape[:-1])
 
     kmeans_spectra = []
     for cluster in range(n_clusters):
@@ -62,6 +65,7 @@ def kmeans_hyper(hyper_image, peak_locs, n_clusters):
         kmeans_spectra.append(spectrum)
 
     return label_image, kmeans_spectra
+
 
 def gmm_hyper(hyper_image, peak_locs, n_clusters):
     """
@@ -88,7 +92,9 @@ def gmm_hyper(hyper_image, peak_locs, n_clusters):
 
     return label_image, gmm_spectra
 
-s = util.load_hyper_numpy('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\Film12topo_0058_numpy\\')
+hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film12topo_0058.txt')
+s = hyper_data.hyper_image
+
 s = np.rot90(s,k=-1)
 peaks, spectrum = get_hyper_peaks(s, .1)
 
@@ -105,11 +111,11 @@ fig.colorbar(cax,ticks=np.arange(6))
 plt.show()
 
 
-gmm, gmm_spectra = gmm_hyper(s, peaks, 8)
+gmm, gmm_spectra = gmm_hyper(s, peaks, 4)
 
 fig = plt.figure()
 cax = plt.imshow(gmm, cmap='Set1')
-fig.colorbar(cax,ticks=np.arange(8))
+fig.colorbar(cax,ticks=np.arange(4))
 plt.show()
 
 plt.figure()
