@@ -43,7 +43,7 @@ def FindPeaks(spectrum, thres=0.01, min_dist=1):
     #and intensity
     for index in peakindices:
         #store each value as a 1-element list 
-        peaksdict[index] = [spectrum[index]]
+        peaksdict[index] = spectrum[index][1]
     return peakindices, peaksdict
 
 
