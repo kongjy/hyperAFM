@@ -34,7 +34,7 @@ def FindPeaks(spectrum, thres=0.01, min_dist=1):
     
     """
     #use peak utils to find indices of peaks.
-    peakindices = peakutils.indexes(spectrum, thres=thres,
+    peakindices = peakutils.indexes(spectrum[:,0], thres=thres,
                                     min_dist=min_dist)
     
     #create empty dictionary to store peak position and intensity
