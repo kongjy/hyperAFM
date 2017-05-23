@@ -65,15 +65,15 @@ class HyperImage():
                     
         # Put all the different channels into one big array.
         channel_data = np.zeros((x_pixel, y_pixel, len(channels[1:])))
-        for i, channel in enumerate(channels[1:]):
-            
+        for ch, channel in enumerate(channels[1:]):
+            print os.path.join(directory,channel['FileName'])
             self.channel_names.append(channel['Caption'])
             data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
             scaling = float(channel['Scale'])
 
             for i,line in enumerate(np.split(data,y_pixel)):
                 for j, pixel in enumerate(np.split(line,x_pixel)):
-                        channel_data[j,i,:] = (scaling*pixel)
+                        channel_data[j,i,ch] = (scaling*pixel)
 
         # Here's how we access the different hyper and channel data.
         self.hyper_image = hyper_image
