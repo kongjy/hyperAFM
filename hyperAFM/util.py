@@ -26,6 +26,7 @@ def load_ibw(path, flatten=True):
         flat_topo[:, :, 0] = detrend(flat_topo[:, :, 0])
         data = flat_topo
         
+    data = np.rot90(data)    
     return data
 
 
@@ -75,8 +76,8 @@ class HyperImage():
                         channel_data[j,i,ch] = (scaling*pixel)
 
         # Here's how we access the different hyper and channel data.
-        self.hyper_image = hyper_image
-        self.channel_data = channel_data
+        self.hyper_image = np.rot90(hyper_image, k=-1)
+        self.channel_data = np.rot90(channel_data, k=-1)
 
 
 

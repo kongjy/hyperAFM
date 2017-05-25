@@ -2,11 +2,12 @@ import util
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import  argrelmax, detrend
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, MeanShift, estimate_bandwidth
 from sklearn import preprocessing
 from sklearn.mixture import BayesianGaussianMixture
 from sklearn.metrics import silhouette_score
 import matplotlib
+from sklearn import decomposition
 
 def get_hyper_peaks(hypir_image, threshold):
     """
@@ -30,7 +31,6 @@ def get_hyper_peaks(hypir_image, threshold):
     return peak_locs, spectrum
 
 
-
 def sum_around_peak(hypir_image, peak_loc, width):
     """
     """
@@ -44,6 +44,7 @@ def sum_around_peak(hypir_image, peak_loc, width):
             result_array[i,j] = hypir_image[i,j,indices].sum()
             
     return result_array
+
 
 def generate_features(hyper_image, peak_locs, width):
     """
@@ -74,14 +75,15 @@ def kmeans_hyper(features, n_clusters):
         spectrum = spectra.mean(axis=0) 
         kmeans_spectra.append(spectrum)
         
-    print silhouette_score(features[:12000,:], label_image.ravel()[:12000],)
     
     return label_image, kmeans_spectra
 
 
-def gmm_hyper(features, n_clusters):
+def gmm_hyper(hyper_image, features, n_clusters):
     """
     """
+    pca = decomposition.PCA(svd_solver='full',n_components=.95)
+    features = pca.fit_transform(features)
 
     gmm = BayesianGaussianMixture(n_components=n_clusters).fit(features).predict(features)
 
@@ -98,28 +100,54 @@ def gmm_hyper(features, n_clusters):
 
     return label_image, gmm_spectra
 
-skpm = util.load_ibw('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\SKPMcAFM_set1\\MAPIFilm12cAFM_0006.ibw')
-skpm_topo = skpm[:,:,2]
+
+def mean_shift_hyper(hyper_image, features):
+    """
+    """
+    bandwidth = estimate_bandwidth(features, quantile=0.2, n_samples=500)
+    
+    ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
+    ms.fit(features)
+    labels = ms.labels_
+    label_image = labels.reshape(hyper_image.shape[:-1])
+    
+    n_clusters = len(np.unique(labels))
+    gmm_spectra = []
+    
+    for cluster in range(n_clusters):
+        spectra = hyper_image[label_image == cluster]
+        spectrum = spectra.mean(axis=0) 
+        gmm_spectra.append(spectrum)
+        
+    print n_clusters
+
+    return label_image, gmm_spectra
+
+
+skpm = util.load_ibw('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\SKPMcAFM_set1\\MAPIFilm12SKPM_0017.ibw')
+skpm_topo = skpm[:,:,0]
+
 
 hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 1\\Set 1\\Film5_0049.txt')
-channel_data = np.rot90(hyper_data.channel_data, k=-1)
-hyper_image = np.rot90(hyper_data.hyper_image, k=-1)
+hyper_image = hyper_data.hyper_image
+channel_data = hyper_data.channel_data
+hyper_topo = detrend(channel_data[:,:,0])
+
+new_skpm = util.align_images(channel_data, skpm)
+new_skpm_topo = new_skpm[:,:,0]
 
 peaks, spectrum = get_hyper_peaks(hyper_image, 0.05)
 
+features = generate_features(hyper_image, peaks, 13)
 
-features = generate_features(hyper_image, peaks, 11)
+gmm, gmm_spectra = mean_shift_hyper(hyper_image, features)
 
-for i in range(2,6):
-    gmm, gmm_spectra = gmm_hyper(features, i)
-
- 
-colors = ['red', 'blue', 'green', 'purple', 'orange', 'cyan']
+colors = ['red', 'blue', 'green', 'purple']#, 'orange', 'cyan']
 
 
 fig = plt.figure()
 cax = plt.imshow(gmm, cmap=matplotlib.colors.ListedColormap(colors))
-fig.colorbar(cax,ticks=np.arange(8))
+fig.colorbar(cax,ticks=np.arange(4))
 plt.show()
 
 offset = 0.0
