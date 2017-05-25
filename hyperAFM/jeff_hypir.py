@@ -1,12 +1,11 @@
 import util
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import medfilt, savgol_filter, argrelmax, detrend, find_peaks_cwt
+from scipy.signal import  argrelmax, detrend
 from sklearn.cluster import KMeans
 from sklearn import preprocessing
-from sklearn.mixture import GaussianMixture
-import sklearn.decomposition
-from sklearn.metrics import explained_variance_score
+from sklearn.mixture import BayesianGaussianMixture
+from sklearn.metrics import silhouette_score
 import matplotlib
 
 def get_hyper_peaks(hypir_image, threshold):
@@ -46,96 +45,87 @@ def sum_around_peak(hypir_image, peak_loc, width):
             
     return result_array
 
-
-def kmeans_hyper(hyper_image, peak_locs, n_clusters):
+def generate_features(hyper_image, peak_locs, width):
     """
     """
     features = []
     for peak in peak_locs:
-        img = sum_around_peak(s, peak, 11)
+        img = sum_around_peak(hyper_image, peak, width)
         img = detrend(img)
         features.append(img.ravel())
         
-    wah = np.column_stack(tuple(features))
-    wah = preprocessing.scale(wah)
-    kmeans = KMeans(n_clusters=n_clusters).fit(wah)
+    feature_array = np.column_stack(tuple(features))
+    feature_array = preprocessing.scale(feature_array)
+    
+    return feature_array
+
+
+def kmeans_hyper(features, n_clusters):
+    """
+    """
+    
+    kmeans = KMeans(n_clusters=n_clusters).fit(features)
     
     label_image = kmeans.labels_.reshape(hyper_image.shape[:-1])
 
     kmeans_spectra = []
     for cluster in range(n_clusters):
-        spectra = s[label_image == cluster]
+        spectra = hyper_image[label_image == cluster]
         spectrum = spectra.mean(axis=0) 
         kmeans_spectra.append(spectrum)
-
+        
+    print silhouette_score(features[:12000,:], label_image.ravel()[:12000],)
+    
     return label_image, kmeans_spectra
 
 
-def gmm_hyper(hyper_image, peak_locs, n_clusters):
+def gmm_hyper(features, n_clusters):
     """
     """
-    features = []
-    for peak in peak_locs:
-        img = sum_around_peak(s, peak, 11)
-        img = detrend(img)
-        features.append(img.ravel())
-        
-    wah = np.column_stack(tuple(features))
-    wah = preprocessing.scale(wah)
-    
-    gmm = GaussianMixture(n_components=n_clusters).fit(wah).predict(wah)
+
+    gmm = BayesianGaussianMixture(n_components=n_clusters).fit(features).predict(features)
 
     label_image = gmm.reshape(hyper_image.shape[:-1])
 
     gmm_spectra = []
     
     for cluster in range(n_clusters):
-        spectra = s[label_image == cluster]
+        spectra = hyper_image[label_image == cluster]
         spectrum = spectra.mean(axis=0) 
         gmm_spectra.append(spectrum)
+        
+    print silhouette_score(features, label_image.ravel(), sample_size=10000)
 
     return label_image, gmm_spectra
 
-skpm_data = util.load_ibw('C:\\Users\\Cypher\\OneDrive\\Documents\\hyperAFM\\Data\\SKPMcAFM_set2\\MAPIFilm12SKPM_0017.ibw')
+skpm = util.load_ibw('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\SKPMcAFM_set1\\MAPIFilm12cAFM_0006.ibw')
+skpm_topo = skpm[:,:,2]
+
+hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 1\\Set 1\\Film5_0049.txt')
+channel_data = np.rot90(hyper_data.channel_data, k=-1)
+hyper_image = np.rot90(hyper_data.hyper_image, k=-1)
+
+peaks, spectrum = get_hyper_peaks(hyper_image, 0.05)
 
 
-hyper_data = util.HyperImage('C:/Users/Cypher/Documents/Set 2/Film12topo_0058.txt')
-channel_data = np.rot90(hyper_data.channel_data, k=-1)[:,::-1,:]
-hyper_image = np.rot90(hyper_data.hyper_image, k=-1)[:,::-1,:]
+features = generate_features(hyper_image, peaks, 11)
 
-#peaks, spectrum = get_hyper_peaks(s, 0.05)
+for i in range(2,6):
+    gmm, gmm_spectra = gmm_hyper(features, i)
 
-new_skpm = util.align_images(hyper_image, skpm_data)
+ 
+colors = ['red', 'blue', 'green', 'purple', 'orange', 'cyan']
 
-#colors = ['red', 'blue', 'green', 'purple', 'orange', 'cyan', 'burlywood', 'chartreuse']
-#
-#label_image, kmeans_spectra = kmeans_hyper(s, peaks, 8)
-#
-#plt.figure()
-#offset = 0.0
-#for i,spectrum in enumerate(kmeans_spectra):
-#    spectrum += offset
-#    plt.plot(spectrum,color=colors[i])
-#    offset += .0001
-#plt.show()
-#
-#fig = plt.figure()
-#cax = plt.imshow(label_image, cmap=matplotlib.colors.ListedColormap(colors))
-#fig.colorbar(cax,ticks=np.arange(8))
-#plt.show()
-#
-#colors = ['red', 'blue', 'green', 'purple', 'orange', 'cyan']
-#gmm, gmm_spectra = gmm_hyper(s, peaks, 6)
-#
-#fig = plt.figure()
-#cax = plt.imshow(gmm, cmap=matplotlib.colors.ListedColormap(colors))
-#fig.colorbar(cax,ticks=np.arange(6))
-#plt.show()
-#
-#offset = 0.0
-#plt.figure()
-#for i,spectrum in enumerate(gmm_spectra):
-#    spectrum += offset
-#    plt.plot(spectrum,color=colors[i])
-#    offset += .0001
-#plt.show()
+
+fig = plt.figure()
+cax = plt.imshow(gmm, cmap=matplotlib.colors.ListedColormap(colors))
+fig.colorbar(cax,ticks=np.arange(8))
+plt.show()
+
+offset = 0.0
+plt.figure()
+for i,spectrum in enumerate(gmm_spectra):
+    spectrum += offset
+    plt.plot(spectrum,color=colors[i])
+    offset += .0001
+plt.show()

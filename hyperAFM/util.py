@@ -4,7 +4,7 @@ from skimage import feature
 from skimage import transform
 import csv
 import numpy as np
-import matplotlib.pyplot as plt
+import h5py
 import os
 
 def load_ibw(path, flatten=True):
@@ -66,7 +66,6 @@ class HyperImage():
         # Put all the different channels into one big array.
         channel_data = np.zeros((x_pixel, y_pixel, len(channels[1:])))
         for ch, channel in enumerate(channels[1:]):
-            print os.path.join(directory,channel['FileName'])
             self.channel_names.append(channel['Caption'])
             data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
             scaling = float(channel['Scale'])
@@ -95,9 +94,9 @@ def align_images(master_data, target_data):
 
     # Get the shift using phase correlation.
     shift,e,b = feature.register_translation(master_topo, target_topo)
-    
+
     # Shift the data.
-    tform = transform.SimilarityTransform(translation=-shift[::-1])
+    tform = transform.SimilarityTransform(translation=[-shift[1],shift[0]])
     
     for i in range(target_shifted.shape[2]):
         target_shifted[:,:,i] = transform.warp(target_shifted[:,:,i], tform, preserve_range=True)
@@ -166,6 +165,7 @@ def read_anfatec_params(path):
     
     return scan_params, file_descriptions
 
+
 def load_hyper_numpy(folder_path):
     """
     Loads a hyper image that has previously been saved into a numpy format.
@@ -187,3 +187,53 @@ def load_hyper_numpy(folder_path):
         image_list.append(np.load(path))
         
     return np.column_stack(tuple(image_list))
+
+
+def hyper_to_hdf5(path, dest_path):
+    """
+    Convert a series of MolecularVista files into hdf5 format.
+    
+    Input:
+        path- The path to the Anfatec Parameter file that contains references to
+        all necessary data.
+        
+        dest_path- desired path for the hdf5 file.
+    Output:
+        Saves a .hdf5 file to the dest_path path. 
+    """
+    name = os.path.basename(path)
+    base, ext = os.path.splitext(name)
+    new_name = base + '_HDF5'+'.hdf5'
+    
+    hyper_data= HyperImage(path)
+    hyper_image = hyper_data.hyper_image
+    
+    channel_data = hyper_data.channel_data
+    channel_names = hyper_data.channel_names
+    
+    h5f = h5py.File(os.path.join(dest_path, new_name))
+    
+    h5f.create_dataset('hyper_image',data=hyper_image)
+    
+    for i,channel_name in enumerate(channel_names):
+        h5f.create_dataset(channel_name, data=channel_data[:,:,i])
+        
+    h5f.close()
+    
+    return
+
+
+def hyper_from_hdf5(path):
+    """
+    Loads Hyperspectral data from a hdf5 file.
+    """
+    
+    h5f = h5py.File(path,mode='r')
+    
+    hyper_image = h5f['hyper_image']
+    channel_data = h5f['channel_data']
+    
+    h5f.close()
+    
+    return hyper_image, channel_data
+    
