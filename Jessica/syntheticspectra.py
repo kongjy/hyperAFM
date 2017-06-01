@@ -55,6 +55,9 @@ C = C.reshape(559)
 #initiate spectral and functional image
 spectralmatrix = np.zeros((256, 256, 559))
 functionalmatrix = np.zeros((256, 256))
+Amatrix = np.zeros((256, 256))
+Bmatrix = np.zeros((256, 256))
+Cmatrix =np.zeros((256, 256))
 xaxis = spectralmatrix.shape[0]
 yaxis = spectralmatrix.shape[1]
 
@@ -76,6 +79,10 @@ for x in range(xaxis):
         c = np.sin(x*spatialfrequency)**2
     #can make a, b, c as a function of x and y with some random noise
         spectralmatrix[x][y] = a*A + b*B + c*C
+        functionalmatrix[x][y] = 2*a + b + 9*c
+        Amatrix[x][y] = a
+        Bmatrix[x][y] = b
+        Cmatrix[x][y] = c
 
  
 
