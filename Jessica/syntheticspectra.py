@@ -59,16 +59,25 @@ xaxis = spectralmatrix.shape[0]
 yaxis = spectralmatrix.shape[1]
 
 #generate random coefficients 
+
+
+
+#need to create matrix with a spectrum at each point. 
+
 np.random.seed(122)
 a=np.random.rand(1)
 b=np.random.rand(1)
 c=np.random.rand(1)
-
-
-#need to create matrix with a spectrum at each point. 
+spatialfrequency = (2*np.pi)/64
 for x in range(xaxis):
     for y in range(yaxis):
-            spectralmatrix[x][y] = a*A + b*B + c*C
+        a = abs(np.sin(y*spatialfrequency))
+        b = abs(np.sin(x*spatialfrequency) + np.sin(y*spatialfrequency))
+        c = np.sin(x*spatialfrequency)**2
+    #can make a, b, c as a function of x and y with some random noise
+        spectralmatrix[x][y] = a*A + b*B + c*C
+
+ 
 
 
 #need to make a matrix that is a function of the spectral matrix, which
