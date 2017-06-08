@@ -2,7 +2,7 @@ from igor.binarywave import load
 from scipy.signal import detrend
 from skimage import feature
 from skimage import transform
-import csv
+import io
 import numpy as np
 import h5py
 import os
@@ -105,8 +105,6 @@ def align_images(master_data, target_data):
     return target_shifted
 
 
-
-
 def read_anfatec_params(path):
     """
     Reads in an ANFATEC parameter file. This file is produced by the Molecular
@@ -127,34 +125,31 @@ def read_anfatec_params(path):
     parameters = {}
     inside_description = False
 
-    with open(path,  'r', encoding = "ISO-8859-1") as f:
+    with io.open(path,  'r', encoding = "ISO-8859-1") as f:
         
         for i,row in enumerate(f): 
+            
+            # Get rid of newline characters at the end of the line.
+            row = row.strip()
             #check to make sure its  not empty 
             if row:
-                
                 # First line of the file is useless. We tell the reader to stop at ';'
-                if row[0] ==';':
+                if row[0] == unicode(';'):
                     continue
-  
+                
                 # This string indicates that we have reached a channel description.
                 if row.endswith('Begin'):
                     inside_description = True
                     continue
-                
+
                 if row.endswith('End'):
                     file_descriptions.append(parameters)
                     parameters = {}
                     inside_description = False
                    
-                # Here we handle the unicode characters and form our key value pairs
-               # new_row =  row[0].replace(' ','')
                 #split between :; creates list of two elements 
                 split_row = row.split(':')
-                
-                for el in split_row: 
-                    el.strip()
-                #split_row[-1] = split_row[-1].decode('unicode-escape')  
+                split_row[0] = split_row[0].strip()
                 
                 # We want to save the channel parameters to a separate structure.
                 if inside_description:
@@ -164,7 +159,6 @@ def read_anfatec_params(path):
                 
                 
     return scan_params, file_descriptions
-
 
 
 def load_hyper_numpy(folder_path):
