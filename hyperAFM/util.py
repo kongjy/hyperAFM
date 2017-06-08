@@ -37,22 +37,24 @@ class HyperImage():
     """
     def __init__(self, path):
         
-        
+        self.wavelength_data = None
         self.channel_names = []
         full_path = os.path.realpath(path)
         directory = os.path.dirname(full_path)
         
         # Get the scan parameters and channel details.
         self.parms, channels =  read_anfatec_params(full_path)
-    
-        self.wavelength_data = np.loadtxt(os.path.join(directory,str(channels[0]['FileNameWavelengths'])))
         
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
         
-        wavenumber_length = self.wavelength_data.shape[0]
-    
-        image_shape = (x_pixel,y_pixel,wavenumber_length)
+        if 'FileNameWavelengths' in self.parms:
+            self.wavelength_data = np.loadtxt(os.path.join(directory,str(channels[0]['FileNameWavelengths'])))
+            wavenumber_length = self.wavelength_data.shape[0] 
+            image_shape = (x_pixel,y_pixel,wavenumber_length)
+        else:
+            image_shape = (x_pixel, y_pixel)
+        
         hyper_image = np.zeros(image_shape)
         
         # This scales the integer data into floats.
@@ -78,7 +80,39 @@ class HyperImage():
         # Here's how we access the different hyper and channel data.
         self.hyper_image = np.rot90(hyper_image, k=-1)
         self.channel_data = np.rot90(channel_data, k=-1)
+        
 
+class PiFMImage():
+    """
+    A class representing a Hyper image. Give the path to the Hyper data, and receive a class that 
+    stores this information as a hyper image, and series of channel images.
+    """
+    def __init__(self, path):
+        
+        self.wavelength_data = None
+        self.channel_names = []
+        full_path = os.path.realpath(path)
+        directory = os.path.dirname(full_path)
+        
+        # Get the scan parameters and channel details.
+        self.parms, channels =  read_anfatec_params(full_path)
+        
+        x_pixel = int(self.parms['xPixel'])
+        y_pixel = int(self.parms['yPixel'])
+
+        # Put all the different channels into one big array.
+        channel_data = np.zeros((x_pixel, y_pixel, len(channels)))
+        for ch, channel in enumerate(channels):
+            self.channel_names.append(channel['Caption'])
+            data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
+            scaling = float(channel['Scale'])
+
+            for i,line in enumerate(np.split(data,y_pixel)):
+                for j, pixel in enumerate(np.split(line,x_pixel)):
+                        channel_data[j,i,ch] = (scaling*pixel)
+
+        # Here's how we access the different hyper and channel data.
+        self.channel_data = np.rot90(channel_data, k=-1)
 
 
 def align_images(master_data, target_data):

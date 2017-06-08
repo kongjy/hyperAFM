@@ -147,8 +147,8 @@ skpm = util.load_ibw('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\
 skpm_topo = skpm[:,:,0]
 
 
-hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film12topo_0058.txt')
-hyper_image = hyper_data.hyper_image
+hyper_data = util.PiFMImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film20_0004.txt')
+#hyper_image = hyper_data.hyper_image
 channel_data = hyper_data.channel_data
 hyper_topo = detrend(channel_data[:,:,0])
 
