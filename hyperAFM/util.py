@@ -48,12 +48,11 @@ class HyperImage():
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
         
-        if 'FileNameWavelengths' in self.parms:
-            self.wavelength_data = np.loadtxt(os.path.join(directory,str(channels[0]['FileNameWavelengths'])))
-            wavenumber_length = self.wavelength_data.shape[0] 
-            image_shape = (x_pixel,y_pixel,wavenumber_length)
-        else:
-            image_shape = (x_pixel, y_pixel)
+
+        self.wavelength_data = np.loadtxt(os.path.join(directory,str(channels[0]['FileNameWavelengths'])))
+        wavenumber_length = self.wavelength_data.shape[0] 
+        image_shape = (x_pixel,y_pixel,wavenumber_length)
+
         
         hyper_image = np.zeros(image_shape)
         
@@ -64,7 +63,7 @@ class HyperImage():
         data = np.fromfile(os.path.join(directory,channels[0]['FileName']),dtype='i4')
         for i,line in enumerate(np.split(data,y_pixel)):
             for j, pixel in enumerate(np.split(line,x_pixel)):
-                    hyper_image[j,i] = pifm_scaling*pixel
+                    hyper_image[j,i,:] = pifm_scaling*pixel
                     
         # Put all the different channels into one big array.
         channel_data = np.zeros((x_pixel, y_pixel, len(channels[1:])))
