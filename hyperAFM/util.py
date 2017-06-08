@@ -45,7 +45,7 @@ class HyperImage():
         # Get the scan parameters and channel details.
         self.parms, channels =  read_anfatec_params(full_path)
     
-        self.wavelength_data = np.loadtxt(os.path.join(directory,channels[0]['FileNameWavelengths']))
+        self.wavelength_data = np.loadtxt(os.path.join(directory,str(channels[0]['FileNameWavelengths'])))
         
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
@@ -149,7 +149,9 @@ def read_anfatec_params(path):
                    
                 #split between :; creates list of two elements 
                 split_row = row.split(':')
-                split_row[0] = split_row[0].strip()
+                
+                for i, el in enumerate(split_row):
+                    split_row[i] = el.strip()
                 
                 # We want to save the channel parameters to a separate structure.
                 if inside_description:

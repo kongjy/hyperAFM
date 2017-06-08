@@ -151,7 +151,7 @@ hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film
 hyper_image = hyper_data.hyper_image
 channel_data = hyper_data.channel_data
 hyper_topo = detrend(channel_data[:,:,0])
-hyper_image = spectralmatrix
+
 #new_skpm = util.align_images(channel_data, skpm)
 #new_skpm_topo = new_skpm[:,:,0]
 
@@ -159,7 +159,7 @@ peaks, spectrum = get_hyper_peaks(hyper_image, 0.05)
 
 features = generate_features(hyper_image, peaks, 13)
 
-gmm, gmm_spectra = gmm_hyper(hyper_image, features, 3)
+gmm, gmm_spectra = gmm_hyper(hyper_image, features, 2)
 
 colors = ['red', 'blue', 'green', 'purple']#, 'orange', 'cyan']
 
