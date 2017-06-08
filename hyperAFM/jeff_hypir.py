@@ -9,14 +9,22 @@ from sklearn.metrics import silhouette_score
 import matplotlib
 from sklearn import decomposition
 
-def get_hyper_peaks(hypir_image, threshold):
+def get_hyper_peaks(hyper_image, threshold):
     """
+    Given a Hyperspectral image, computes the average spectrum and finds the peaks of that spectrum.
+    
+    Input:
+        hyper_image: An image where each pixel represents one PiFM spectrum.
+        threshold: The minimum percentage to consider when finding peaks. (value 0.0 - 1.0)
+    Output:
+        peak_locs: the locations of the peaks in point space.
+        spectrum: the computed average spectrum of the hyper image
     """
     
     im_list = []
-    for i in range(hypir_image.shape[0]):
-        for j in range(hypir_image.shape[1]):
-            im_list.append(hypir_image[i,j,:])
+    for i in range(hyper_image.shape[0]):
+        for j in range(hyper_image.shape[1]):
+            im_list.append(hyper_image[i,j,:])
 
 
     spectrum = np.column_stack(tuple(im_list)).mean(axis=-1)
@@ -31,17 +39,17 @@ def get_hyper_peaks(hypir_image, threshold):
     return peak_locs, spectrum
 
 
-def sum_around_peak(hypir_image, peak_loc, width):
+def sum_around_peak(hyper_image, peak_loc, width):
     """
     """
     half_width = np.floor(width/2)
-    result_array = np.zeros(hypir_image.shape[:-1])
+    result_array = np.zeros(hyper_image.shape[:-1])
     
     indices = np.arange(peak_loc-half_width, peak_loc+half_width,dtype=int)
     
-    for i in range(hypir_image.shape[0]):
-        for j in range(hypir_image.shape[1]):
-            result_array[i,j] = hypir_image[i,j,indices].sum()
+    for i in range(hyper_image.shape[0]):
+        for j in range(hyper_image.shape[1]):
+            result_array[i,j] = hyper_image[i,j,indices].sum()
             
     return result_array
 
@@ -59,6 +67,17 @@ def generate_features(hyper_image, peak_locs, width):
     feature_array = preprocessing.scale(feature_array)
     
     return feature_array
+
+
+def feature_by_pixel(hyper_image):
+    x_pixels, y_pixels, spectrum_length = hyper_image.shape
+    
+    features = []
+    for j  in range(y_pixels):
+        for i in range(x_pixels):
+            features.append(hyper_image[i,j])
+    
+    return np.array(features)
 
 
 def kmeans_hyper(features, n_clusters):
@@ -82,8 +101,8 @@ def kmeans_hyper(features, n_clusters):
 def gmm_hyper(hyper_image, features, n_clusters):
     """
     """
-    pca = decomposition.PCA(svd_solver='full',n_components=.95)
-    features = pca.fit_transform(features)
+#    pca = decomposition.PCA(svd_solver='full',n_components=.2)
+#    features = pca.fit_transform(features)
 
     gmm = BayesianGaussianMixture(n_components=n_clusters).fit(features).predict(features)
 
@@ -128,24 +147,25 @@ skpm = util.load_ibw('C:\\Users\\jarrison\\OneDrive\\Documents\\hyperAFM\\Data\\
 skpm_topo = skpm[:,:,0]
 
 
-hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 1\\Set 1\\Film5_0049.txt')
+hyper_data = util.HyperImage('C:\\Users\\jarrison\\Downloads\\Set 2\\Set 2\\Film12topo_0058.txt')
 hyper_image = hyper_data.hyper_image
 channel_data = hyper_data.channel_data
 hyper_topo = detrend(channel_data[:,:,0])
-
-new_skpm = util.align_images(channel_data, skpm)
-new_skpm_topo = new_skpm[:,:,0]
+hyper_image = spectralmatrix
+#new_skpm = util.align_images(channel_data, skpm)
+#new_skpm_topo = new_skpm[:,:,0]
 
 peaks, spectrum = get_hyper_peaks(hyper_image, 0.05)
 
 features = generate_features(hyper_image, peaks, 13)
 
-gmm, gmm_spectra = mean_shift_hyper(hyper_image, features)
+gmm, gmm_spectra = gmm_hyper(hyper_image, features, 3)
 
 colors = ['red', 'blue', 'green', 'purple']#, 'orange', 'cyan']
 
 
 fig = plt.figure()
+plt.imshow(hyper_topo)
 cax = plt.imshow(gmm, cmap=matplotlib.colors.ListedColormap(colors))
 fig.colorbar(cax,ticks=np.arange(4))
 plt.show()
@@ -157,3 +177,11 @@ for i,spectrum in enumerate(gmm_spectra):
     plt.plot(spectrum,color=colors[i])
     offset += .0001
 plt.show()
+
+#test_features = feature_by_pixel(hyper_image)
+#
+#gmm = BayesianGaussianMixture(n_components=4).fit(test_features).predict(test_features)
+
+
+
+

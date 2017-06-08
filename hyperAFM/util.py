@@ -150,7 +150,7 @@ def read_anfatec_params(path):
                 # Here we handle the unicode characters and form our key value pairs
                # new_row =  row[0].replace(' ','')
                 #split between :; creates list of two elements 
-                split_row = new_row.split(':')
+                split_row = row.split(':')
                 
                 for el in split_row: 
                     el.strip()
