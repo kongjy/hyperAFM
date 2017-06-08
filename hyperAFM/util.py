@@ -106,6 +106,7 @@ def align_images(master_data, target_data):
 
 
 
+
 def read_anfatec_params(path):
     """
     Reads in an ANFATEC parameter file. This file is produced by the Molecular
@@ -118,37 +119,42 @@ def read_anfatec_params(path):
     Output:
         file_descriptions: A list of dictionaries, with each item in the list 
             corresponding to a channel that was recorded by the PiFM.
-            
         scan_params: A dictionary of non-channel specific scan parameters.
         
     """
-    
     file_descriptions = []
     scan_params = {}
     parameters = {}
     inside_description = False
 
-    with open(path,  'r') as csvfile:
-        reader = csv.reader(csvfile,delimiter='\t')
-        for i,row in enumerate(reader): 
-            
+    with open(path,  'r', encoding = "ISO-8859-1") as f:
+        
+        for i,row in enumerate(f): 
+            #check to make sure its  not empty 
             if row:
                 
                 # First line of the file is useless. We tell the reader to stop at ';'
-                if row[0] ==';ANFATEC Parameterfile':
+                if row[0] ==';':
                     continue
-                if row[0][0] == ';':
-                    break
-                
+  
                 # This string indicates that we have reached a channel description.
-                if row[0].endswith('Begin'):
+                if row.endswith('Begin'):
                     inside_description = True
                     continue
+                
+                if row.endswith('End'):
+                    file_descriptions.append(parameters)
+                    parameters = {}
+                    inside_description = False
                    
                 # Here we handle the unicode characters and form our key value pairs
-                new_row =  row[0].replace(' ','')
+               # new_row =  row[0].replace(' ','')
+                #split between :; creates list of two elements 
                 split_row = new_row.split(':')
-                split_row[-1] = split_row[-1].decode('unicode-escape')  
+                
+                for el in split_row: 
+                    el.strip()
+                #split_row[-1] = split_row[-1].decode('unicode-escape')  
                 
                 # We want to save the channel parameters to a separate structure.
                 if inside_description:
@@ -156,15 +162,9 @@ def read_anfatec_params(path):
                 else:
                     scan_params[split_row[0]] = split_row[-1]
                 
-                if row[0].endswith('End'):
-                    del parameters[row[0]]
-                    file_descriptions.append(parameters)
-                    parameters = {}
-                    inside_description = False
-                    
-        csvfile.close()
-    
+                
     return scan_params, file_descriptions
+
 
 
 def load_hyper_numpy(folder_path):
