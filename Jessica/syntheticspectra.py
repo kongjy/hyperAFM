@@ -78,7 +78,7 @@ for x in range(xaxis):
         b = abs(np.sin(x*spatialfrequency) + np.sin(y*spatialfrequency))
         c = np.sin(x*spatialfrequency)**2
     #can make a, b, c as a function of x and y with some random noise
-        spectralmatrix[x][y] = a*A + b*B + c*C
+        spectralmatrix[x,y,:] = a*A + b*B + c*C 
         functionalmatrix[x][y] = 2*a + b + 9*c
         Amatrix[x][y] = a
         Bmatrix[x][y] = b
