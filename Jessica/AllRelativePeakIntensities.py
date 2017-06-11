@@ -10,13 +10,10 @@ import numpy as np
 import FindPeaks
 
 
-#maybe should incorporate delimiter, skip_header into functions; set default 
-#to tab delimited, skip_header=1 
-
 def TotIntensity(spectrum, thres, min_dist):
     """Takes a spectrum and returns summed intensity at each data point.
     
-    INPUT: spectrum: with format wavenumber|intensity, tab delimited.
+    INPUT: spectrum: list of intensities
        
         thres: minimum relative intensity required to be considered a peak.
         Only peaks with relative amplitude higher than threshold will 
@@ -29,7 +26,7 @@ def TotIntensity(spectrum, thres, min_dist):
     RETURNS: number, reflecting sum of intensities at each wavenumber 
                 in spectrum.
     """
-    peakindices, allpeaks = FindPeak.FindPeaks(spectrum, thres, min_dist)
+    peakindices, allpeaks = FindPeaks.FindPeaks(spectrum, thres, min_dist)
     
     totintensity = sum(allpeaks.values())
     return totintensity
@@ -38,7 +35,7 @@ def TotIntensity(spectrum, thres, min_dist):
 def RelIntensities(spectrum, peak1, peak2): 
     """Calculates the relative peak intensities of two peaks in a spectrum.
     
-    INPUTS: spectrum: format wavenumber|intensity, tab delimited
+    INPUTS: spectrum: list of intensities
             peak1: index of peak 1
             peak2: index of peak 2
     RETURNS: relative intensity of peak1/peak2
@@ -47,7 +44,7 @@ def RelIntensities(spectrum, peak1, peak2):
     """
     #consider: peak indices or peak positions? 
     #calc relative peak intensities
-    peak12 = spectrum[peak1][1]/spectrum[peak2][1]
+    peak12 = spectrum[peak1]/spectrum[peak2]
     return peak12
 
 
@@ -64,14 +61,11 @@ def FindSamePeaks(indices, peaksdict, otherspectrum):
     RETURNS: peaksdict with the intensity of the peak in other 
              spectrum appended. 
     """
-    #not sure if it is better to figure out how to 
-    #append as an array and then reshape for plotting or
-    #if its better to store everything in a list and then
-    #reshape for plotting. 
+ 
     for index in indices:
-        key=spectrum[index][0]
-        otherpeakintensity=otherspectrum[index][1]
-        peaksdict[key].append([otherpeakintensity])
+        key=index
+        otherpeakintensity=otherspectrum[index]
+        peaksdict[key].append(otherpeakintensity)
         
     return peaksdict
 
@@ -94,7 +88,7 @@ def AllRelativeIntensities(spectrum, thres, min_dist):
             
     """
     #store indices of peaks; store peak position and intensities
-    peakindices, allpeaks = FindPeak.FindPeaks(spectrum, thres, min_dist)
+    peakindices, allpeaks = FindPeaks.FindPeaks(spectrum, thres, min_dist)
     
     #number of peaks
     peaks = len(allpeaks)
