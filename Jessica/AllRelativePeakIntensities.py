@@ -7,13 +7,8 @@ Created on Mon May  1 09:00:31 2017
 """
 
 import numpy as np
-import FindPeak
+import FindPeaks
 
-spectrum=np.genfromtxt('../Data/PointSpectra/Spectrum1.txt', delimiter='',
-                     skip_header=1)
-spectrum2=np.genfromtxt('../Data/PointSpectra/Spectrum2.txt', delimiter='',
-                        skip_header=1)
-allthepeaks=FindPeak.FindPeaks(spectrum, thres=0.0007, min_dist=1)
 
 #maybe should incorporate delimiter, skip_header into functions; set default 
 #to tab delimited, skip_header=1 
