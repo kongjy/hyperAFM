@@ -4,6 +4,7 @@ Created on Sat Jun 10 18:22:47 2017
 
 @author: Jessica
 """
+import FindPeaks
 
 def TotIntensity(spectrum, thres, min_dist):
     """Takes a spectrum and returns summed intensity at each data point.
@@ -20,6 +21,9 @@ def TotIntensity(spectrum, thres, min_dist):
     
     RETURNS: number, reflecting sum of intensities at each wavenumber 
                 in spectrum.
+                
+    TO DO: values in dictionary are stored as lists, which can not be added.
+    Change to allow for addition of intensities. 
     """
     peakindices, allpeaks = FindPeaks.FindPeaks(spectrum, thres, min_dist)
     
