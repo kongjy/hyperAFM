@@ -30,6 +30,8 @@ def get_hyper_peaks(hyper_image, threshold):
     
     return averagespectrum 
 
+averagespectrum = get_hyper_peaks(spectralmatrix, threshold=0.01)
+
 def makefeaturematrix(spectralmatrix, averagespectrum):
     """
     Makes a matrix containing peak intensities at each peak for every pixel
@@ -59,6 +61,8 @@ def makefeaturematrix(spectralmatrix, averagespectrum):
                 
     return featurematrix
 
+featurematrix = makefeaturematrix(spectralmatrix, averagespectrum)
+
 def stdfeature(featurematrix, axis):
     """ 
     Standardizes a matrix along the specified axis to zero mean and unit 
@@ -75,13 +79,14 @@ featurematrix_std = stdfeature(featurematrix, axis = 0)
 #stdsample.std(axis=0)
 #along axis 0  = running vertically downwards, across rows; 1 = columns
 
+#sklearn pca
 sklearn_pca = sklearnPCA(n_components=9)
-
 principalcomponents = sklearn_pca.fit_transform(featurematrix_std)
 U =  sklearn_pca.fit_transform(featurematrix_std)
 cov = sklearn_pca.get_covariance()
 score = sklearn_pca.score_samples(featurematrix_std)
-###
+
+#matrix decomposition 
 mean_vec = np.mean(featurematrix_std, axis=0)
 cov_mat = np.cov(featurematrix_std.T)
 eig_vals, eig_vecs = np.linalg.eig(cov_mat)
