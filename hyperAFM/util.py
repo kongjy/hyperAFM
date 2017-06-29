@@ -48,12 +48,10 @@ class HyperImage():
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
         
-
         self.wavelength_data = np.loadtxt(os.path.join(directory,str(channels[0]['FileNameWavelengths'])))
         wavenumber_length = self.wavelength_data.shape[0] 
         image_shape = (x_pixel,y_pixel,wavenumber_length)
 
-        
         hyper_image = np.zeros(image_shape)
         
         # This scales the integer data into floats.
@@ -80,6 +78,8 @@ class HyperImage():
         self.hyper_image = np.rot90(hyper_image, k=-1)
         self.channel_data = np.rot90(channel_data, k=-1)
         
+        self.hyper_image = self.hyper_image[:,::-1,:]
+        self.channel_data = self.channel_data[:,::-1,:]
 
 class PiFMImage():
     """
