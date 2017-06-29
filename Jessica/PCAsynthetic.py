@@ -7,6 +7,7 @@ import syntheticspectra
 import FindPeaks
 from sklearn.preprocessing import scale
 from sklearn.decomposition import PCA as sklearnPCA
+from matplotlib.mlab import PCA
 
 def get_hyper_peaks(hyper_image, threshold):
     """
@@ -30,7 +31,6 @@ def get_hyper_peaks(hyper_image, threshold):
     
     return averagespectrum 
 
-averagespectrum = get_hyper_peaks(spectralmatrix, threshold=0.01)
 
 def makefeaturematrix(spectralmatrix, averagespectrum):
     """
@@ -61,7 +61,7 @@ def makefeaturematrix(spectralmatrix, averagespectrum):
                 
     return featurematrix
 
-featurematrix = makefeaturematrix(spectralmatrix, averagespectrum)
+
 
 def stdfeature(featurematrix, axis):
     """ 
@@ -71,36 +71,4 @@ def stdfeature(featurematrix, axis):
     featurematrix_std = scale(featurematrix, axis = axis)
     
     return featurematrix_std 
-
-#standardize matrix 
-featurematrix_std = stdfeature(featurematrix, axis = 0)
-#tcheck that sample matrix is standardized, use
-#std.sample.mean(axis=0)
-#stdsample.std(axis=0)
-#along axis 0  = running vertically downwards, across rows; 1 = columns
-
-#sklearn pca
-sklearn_pca = sklearnPCA(n_components=9)
-principalcomponents = sklearn_pca.fit_transform(featurematrix_std)
-U =  sklearn_pca.fit_transform(featurematrix_std)
-cov = sklearn_pca.get_covariance()
-score = sklearn_pca.score_samples(featurematrix_std)
-
-#matrix decomposition 
-mean_vec = np.mean(featurematrix_std, axis=0)
-cov_mat = np.cov(featurematrix_std.T)
-eig_vals, eig_vecs = np.linalg.eig(cov_mat)
-
-#firstsampfirstcomp = np.dot(eig_vecs[:,0], featurematrix_std[0,:]-mean_vec) 
-#matches with mlPCA.Y[0,:]
-
-##matlab pca 
-from matplotlib.mlab import PCA
-mlPCA = PCA(featurematrix_std)
-#attribute .Y is the input projected into PCA space 
-mltrans = mlPCA.Y
-#reshape
-mltransreshape = mltrans.reshape((256,256,9))
-#check that it was reshaped correctly
-#mltrans[513,:] should be the same as mltransreshape[2,1,:]
 
