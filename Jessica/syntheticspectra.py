@@ -15,11 +15,17 @@ import numpy as np
 import matplotlib.mlab as mlab
 import math
 
-mu = 0
+
+"""
+-loadings happen bc theyre not real spectra
+-should have positive eigenvectors and values
+
+"""
+mu = 4
 mu2 = 0.5
 mu3 = 0.75
 
-variance = 0.5
+variance = 2
 variance2 = 1
 variance3 = 1.5
 
@@ -41,15 +47,15 @@ A[420:460] = mlab.normpdf(x3, mu3, sigma3).reshape(40,1)
 A = A.reshape(559)
 
 B = np.zeros((559,1))
-B[23:63] = mlab.normpdf(x, mu, sigma).reshape(40,1)
-B[400:440] =  mlab.normpdf(x3, mu3, sigma3).reshape(40,1)
+B[100:140] = mlab.normpdf(x, mu, sigma).reshape(40,1)
+B[305:345] =  mlab.normpdf(x3, mu3, sigma3).reshape(40,1)
 B[470:510] = mlab.normpdf(x2, mu2, sigma2).reshape(40,1)
 B = B.reshape(559)
 
 C = np.zeros((559, 1))
-C[320:360] = mlab.normpdf(x2, mu2, sigma2).reshape(40,1)
-C[433:473] = mlab.normpdf(x, mu, sigma).reshape(40,1)
-C[128:168] = mlab.normpdf(x3, mu3, sigma3).reshape(40,1)
+C[158:198] = mlab.normpdf(x2, mu2, sigma2).reshape(40,1)
+C[354:394] = mlab.normpdf(x, mu, sigma).reshape(40,1)
+C[512:552] = mlab.normpdf(x3, mu3, sigma3).reshape(40,1)
 C = C.reshape(559)
 
 #initiate spectral and functional image
