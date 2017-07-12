@@ -82,38 +82,38 @@ class HyperImage():
         self.channel_data = self.channel_data[:,::-1,:]
         
 
-
-class PiFMImage():
-    """
-    A class representing a Hyper image. Give the path to the Hyper data, and receive a class that 
-    stores this information as a hyper image, and series of channel images.
-    """
-    def __init__(self, path):
-        
-        self.wavelength_data = None
-        self.channel_names = []
-        full_path = os.path.realpath(path)
-        directory = os.path.dirname(full_path)
-        
-        # Get the scan parameters and channel details.
-        self.parms, channels =  read_anfatec_params(full_path)
-        
-        x_pixel = int(self.parms['xPixel'])
-        y_pixel = int(self.parms['yPixel'])
-
-        # Put all the different channels into one big array.
-        channel_data = np.zeros((x_pixel, y_pixel, len(channels)))
-        for ch, channel in enumerate(channels):
-            self.channel_names.append(channel['Caption'])
-            data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
-            scaling = float(channel['Scale'])
-
-            for i,line in enumerate(np.split(data,y_pixel)):
-                for j, pixel in enumerate(np.split(line,x_pixel)):
-                        channel_data[j,i,ch] = (scaling*pixel)
-
-        # Here's how we access the different hyper and channel data.
-        self.channel_data = np.rot90(channel_data, k=-1)
+#
+#class PiFMImage():
+#    """
+#    A class representing a Hyper image. Give the path to the Hyper data, and receive a class that 
+#    stores this information as a hyper image, and series of channel images.
+#    """
+#    def __init__(self, path):
+#        
+#        self.wavelength_data = None
+#        self.channel_names = []
+#        full_path = os.path.realpath(path)
+#        directory = os.path.dirname(full_path)
+#        
+#        # Get the scan parameters and channel details.
+#        self.parms, channels =  read_anfatec_params(full_path)
+#        
+#        x_pixel = int(self.parms['xPixel'])
+#        y_pixel = int(self.parms['yPixel'])
+#
+#        # Put all the different channels into one big array.
+#        channel_data = np.zeros((x_pixel, y_pixel, len(channels)))
+#        for ch, channel in enumerate(channels):
+#            self.channel_names.append(channel['Caption'])
+#            data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
+#            scaling = float(channel['Scale'])
+#
+#            for i,line in enumerate(np.split(data,y_pixel)):
+#                for j, pixel in enumerate(np.split(line,x_pixel)):
+#                        channel_data[j,i,ch] = (scaling*pixel)
+#
+#        # Here's how we access the different hyper and channel data.
+#        self.channel_data = np.rot90(channel_data, k=-1)
 
 
 #def align_images(master_data, target_data):
@@ -138,6 +138,47 @@ class PiFMImage():
 #        target_shifted[:,:,i] = transform.warp(target_shifted[:,:,i], tform, preserve_range=True)
 #    
 #    return target_shifted
+class PiFMImage():
+    """
+    A class representing a PiFM image. Give the path to the PiFM data
+    and receive a class that stores this information as a hyper image, 
+    and series of channel images.
+    
+    Input: 
+        path: Path to ANFATEC parameter file. This is the text file that
+        is generated with each scan.
+        
+    Output: 
+
+    """
+    def __init__(self, path):
+        
+        
+        self.channel_names = []
+        full_path = os.path.realpath(path)
+        directory = os.path.dirname(full_path)
+        
+        # Get the scan parameters and channel details.
+        self.parms, channels =  read_anfatec_params(full_path)
+       
+        x_pixel = int(self.parms['xPixel'])
+        y_pixel = int(self.parms['yPixel'])
+        
+        #Make one big array for all the data channels.
+        channel_data = np.zeros((x_pixel, y_pixel, len(channels)))
+        for i, channel in enumerate(channels):
+            
+            self.channel_names.append(channel['Caption'])
+            data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
+            #scaling = float(channel['Scale'])
+            channel_data[:,:,i] = np.reshape(data, (256,256))
+            
+            #for i,line in enumerate(np.split(data,y_pixel)):
+            #    for j, pixel in enumerate(np.split(line,x_pixel)):
+            #            channel_data[j,i,:] = (scaling*pixel)
+
+        # Here's how we access the different hyper and channel data.
+        self.channel_data = channel_data
 
 def align_images(image, offset_image):
     
@@ -146,32 +187,32 @@ def align_images(image, offset_image):
     padding cropped area with zeros. 
     """
     #flatten images
-    #image = detrend(image, axis=1, type = "linear")
-    #offset_image = detrend(offset_image, axis=1, type = "linear")
+    image = detrend(image, axis=1, type = "linear")
+    offset_image = detrend(offset_image, axis=1, type = "linear")
     
     #find shift, error, and phase difference between the two images
     shift, error, diffphase = feature.register_translation(image, offset_image)
     
     #shift the offset image
-    offset_imagecrop = offset_image[:-int(shift[0]),int(shift[1]):]
+    offset_imagecrop = offset_image[:-int(shift[0]),-int(shift[1]):]
     offset_imagepadded = np.zeros((256,256))
     offset_imagepadded[:offset_imagecrop.shape[0], \
                        :offset_imagecrop.shape[1]] = offset_imagecrop
     
     #swap the reference and offset image. take offset_image as the new ref. 
-    ref_image = offset_imagepadded 
+    newref_image = offset_imagepadded 
     offset_image = image
     
     #detect pixel shift again
-    shift1, error1, diffphase1 = feature.register_translation(ref_image, offset_image)
+    shift1, error1, diffphase1 = feature.register_translation(newref_image, offset_image)
     
     #shift original reference image to match offset image
-    offset_imagecrop1 = offset_image[-int(shift1[0]):, :]
-    offset_imagepadded1 = np.zeros((256,256))
-    offset_imagepadded1[:offset_imagecrop1.shape[0], :offset_imagecrop1.shape[1]] = offset_imagecrop1
+    ref_imagecrop = offset_image[-int(shift1[0]):, :]
+    ref_imagepadded = np.zeros((256,256))
+    ref_imagepadded[:ref_imagecrop.shape[0], :ref_imagecrop.shape[1]] = ref_imagecrop
     
 
-    return offset_imagepadded1, image, shift, shift1
+    return ref_imagepadded, offset_imagepadded
     
     
 
