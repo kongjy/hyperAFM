@@ -80,6 +80,8 @@ class HyperImage():
         
         self.hyper_image = self.hyper_image[:,::-1,:]
         self.channel_data = self.channel_data[:,::-1,:]
+        
+
 
 class PiFMImage():
     """
@@ -114,29 +116,64 @@ class PiFMImage():
         self.channel_data = np.rot90(channel_data, k=-1)
 
 
-def align_images(master_data, target_data):
+#def align_images(master_data, target_data):
+#    """
+#    Given a master image, this function aligns the target image to this master 
+#    data.
+#    
+#    What format(s) do master and target data have to be in? 
+#    
+#    """
+#    target_shifted = target_data.copy()
+#    master_topo = master_data[:,:,0]
+#    target_topo = target_data[:,:,0]
+#
+#    # Get the shift using phase correlation.
+#    shift,e,b = feature.register_translation(master_topo, target_topo)
+#
+#    # Shift the data.
+#    tform = transform.SimilarityTransform(translation=[-shift[1],shift[0]])
+#    
+#    for i in range(target_shifted.shape[2]):
+#        target_shifted[:,:,i] = transform.warp(target_shifted[:,:,i], tform, preserve_range=True)
+#    
+#    return target_shifted
+
+def align_images(image, offset_image):
+    
     """
-    Given a master image, this function aligns the target image to this master 
-    data.
-    
-    What format(s) do master and target data have to be in? 
-    
+    Flattens, aligns and crops two images to a common area. Retains original size by 
+    padding cropped area with zeros. 
     """
-    target_shifted = target_data.copy()
-    master_topo = master_data[:,:,0]
-    target_topo = target_data[:,:,0]
-
-    # Get the shift using phase correlation.
-    shift,e,b = feature.register_translation(master_topo, target_topo)
-
-    # Shift the data.
-    tform = transform.SimilarityTransform(translation=[-shift[1],shift[0]])
+    #flatten images
+    #image = detrend(image, axis=1, type = "linear")
+    #offset_image = detrend(offset_image, axis=1, type = "linear")
     
-    for i in range(target_shifted.shape[2]):
-        target_shifted[:,:,i] = transform.warp(target_shifted[:,:,i], tform, preserve_range=True)
+    #find shift, error, and phase difference between the two images
+    shift, error, diffphase = feature.register_translation(image, offset_image)
     
-    return target_shifted
+    #shift the offset image
+    offset_imagecrop = offset_image[:-int(shift[0]),int(shift[1]):]
+    offset_imagepadded = np.zeros((256,256))
+    offset_imagepadded[:offset_imagecrop.shape[0], \
+                       :offset_imagecrop.shape[1]] = offset_imagecrop
+    
+    #swap the reference and offset image. take offset_image as the new ref. 
+    ref_image = offset_imagepadded 
+    offset_image = image
+    
+    #detect pixel shift again
+    shift1, error1, diffphase1 = feature.register_translation(ref_image, offset_image)
+    
+    #shift original reference image to match offset image
+    offset_imagecrop1 = offset_image[-int(shift1[0]):, :]
+    offset_imagepadded1 = np.zeros((256,256))
+    offset_imagepadded1[:offset_imagecrop1.shape[0], :offset_imagecrop1.shape[1]] = offset_imagecrop1
+    
 
+    return offset_imagepadded1, image, shift, shift1
+    
+    
 
 def read_anfatec_params(path):
     """
