@@ -185,6 +185,13 @@ def align_images(image, offset_image):
     """
     Flattens, aligns and crops two images to a common area. Retains original size by 
     padding cropped area with zeros. 
+    
+    Input: 
+        image: any data channel
+        offset_image: same data channel of a different scan. 
+        
+    Output: 
+        ref_imagepadded, offset_image
     """
     #flatten images
     image = detrend(image, axis=1, type = "linear")
