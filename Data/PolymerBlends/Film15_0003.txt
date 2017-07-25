@@ -1,0 +1,1368 @@
+
+;ANFATEC Parameterfile
+
+Version : 1.12
+VistaScanVersion : 1.6.1.20
+Date : 06/26/2017
+Time : 02:26:25 PM
+UTCDateTime : 2017/06/26 21:26:25
+UserName : Jess
+SampleName : PS/P3HT
+CantileverType : NCHAu
+CantileverID : 4
+Lens : 0.9NA Air
+Scanner : scanner
+Scanner calibration : 2016-3-21 clscanner demo.ini
+Head calibration : softlinHead.ini
+Lockin calibration : controller_574-580-549-16.ini
+StartDate : 06/26/2017
+StartTime : 02:11:08 PM
+
+FeedbackMode     : opticalforce
+FeedbackModePiFM : 22
+SetPoint         : 85
+SetPointPhysUnit : V
+FeedBackModus    : ncAFM R
+Bias             : 0
+BiasPhysUnit     : mV
+Ki               : 2200
+Kp               : 0
+
+FastZKi    : 4
+FastZKp    : 1e-6
+FastZTd    : 0
+FastZAlpha : 3
+
+XStage     : 1369.8732 ; µm
+YStage     : 603.1236 ; µm
+XScanRange : 15
+YScanRange : 15
+XPhysUnit  : µm
+YPhysUnit  : µm
+Speed      : 0.25 ; lines/sec
+Angle      : 0 ; degrees
+xPixel     : 256
+yPixel     : 256
+yCenter    : 0
+xCenter    : 0
+dzdx       : 0
+dzdy       : 0
+overscan[%]: 5
+
+LockInFreq         : 1656008.75
+LockInFreqPhysUnit : Hz
+LockInAmpl         : 0.0451680442801411
+LockInAmplPhysUnit : V
+
+TimeConstant  : 20 ms
+RollOff       : 12 db/oct
+DetectionFrequency : 262763.53125
+LaserController1State     : On
+LaserController1Laser     : IR (Block Engineering tunable laser [LaserTune LT4000E])
+LaserController1LaserWavelength: 6702.41286863271
+LaserController1DutyCycle : 5 ; %
+LaserController1VoltageLow: 0 ; V
+LaserController1VoltageHigh: 4 ; V
+LaserController1Frequency : 1393245.21875 ; Hz
+LaserController2State     : Off
+LaserController2Laser     : 650 nm
+LaserController2LaserWavelength: 488
+LaserController2DutyCycle : 50 ; %
+LaserController2VoltageLow: 0 ; V
+LaserController2VoltageHigh: 4 ; V
+LaserController2Frequency : 1393245.21875 ; Hz
+
+BottomObjectiveFocus : 0 ; µm
+UserNotes: 1492cm a PS peak 
+
+FileDescBegin
+FileName : Film15_0003TopographyFwd.int
+Caption  : TopographyFwd
+Scale    : 2.88e-6
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003TopographyBwd.int
+Caption  : TopographyBwd
+Scale    : 2.88e-6
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003ScanSensor-YFwd.int
+Caption  : ScanSensor-YFwd
+Scale    : 1e-8
+PhysUnit : V
+Offset   : 2.9000001
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003ScanSensor-XFwd.int
+Caption  : ScanSensor-XFwd
+Scale    : 1e-8
+PhysUnit : V
+Offset   : 1
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003AFMHead-ZFwd.int
+Caption  : AFMHead-ZFwd
+Scale    : -1.4e-7
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003AFMHead-ZBwd.int
+Caption  : AFMHead-ZBwd
+Scale    : -1.4e-7
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003Scanner-ZFwd.int
+Caption  : Scanner-ZFwd
+Scale    : -2.74e-6
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003Scanner-ZBwd.int
+Caption  : Scanner-ZBwd
+Scale    : -2.74e-6
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003TopoFwd.int
+Caption  : TopoFwd
+Scale    : -2.74e-6
+PhysUnit : nm
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003AmplitudeFwd.int
+Caption  : AmplitudeFwd
+Scale    : 6.8097344132767e-9
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003AmplitudeBwd.int
+Caption  : AmplitudeBwd
+Scale    : 6.8097344132767e-9
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003PhaseFwd.int
+Caption  : PhaseFwd
+Scale    : 1e-3
+PhysUnit : °
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003PhaseBwd.int
+Caption  : PhaseBwd
+Scale    : 1e-3
+PhysUnit : °
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003LIA1 XFwd.int
+Caption  : LIA1 XFwd
+Scale    : 1.1214e-8
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003LIA1 YFwd.int
+Caption  : LIA1 YFwd
+Scale    : 1.1214e-8
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003PiFMFwd.int
+Caption  : PiFMFwd
+Scale    : 6.8097344132767e-9
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003PiFMBwd.int
+Caption  : PiFMBwd
+Scale    : 6.8097344132767e-9
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003PiFMFly.int
+Caption  : PiFMFly
+Scale    : 6.8097344132767e-9
+PhysUnit : V
+Offset   : 0
+FileDescEnd
+
+FileDescBegin
+FileName : Film15_0003LIA1 PhaseFwd.int
+Caption  : LIA1 PhaseFwd
+Scale    : 1.68224299065421e-7
+PhysUnit : deg
+Offset   : 0
+FileDescEnd
+
+
+;(at 2017/06/26 14:09:53): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:09:53): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:09:53): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:09:54): Laser controller 1: Set status=OFF (no modulation voltage)
+;  Scan position: line=1 dir=down
+;(at 2017/06/26 14:10:01): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=-1
+;  setpoint=0
+;  ki=0
+;  kp=0
+;(at 2017/06/26 14:10:01): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=1000
+;  kp=0
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=200
+;  kp=0
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=200
+;  kp=0
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=300
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=200
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=100
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=50
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=25
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=125
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=62.5
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=162.5
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=81.25
+;  kp=0
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:02): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=181.25
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=90.625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=45.3125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=145.3125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=72.65625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=172.65625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=86.328125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=43.1640625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=143.1640625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.58203125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=171.58203125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.791015625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.8955078125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.8955078125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.44775390625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=171.44775390625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.723876953125
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.8619384765625
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.861938476563
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.4309692382813
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=171.430969238281
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.7154846191406
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.8577423095703
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.85774230957
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.4288711547852
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=171.428871154785
+;  kp=0
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:03): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.7144355773926
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.8572177886963
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.857217788696
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.4286088943481
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=35.7143044471741
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=135.714304447174
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=67.857152223587
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=33.9285761117935
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=133.928576111794
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=66.9642880558968
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=166.964288055897
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=83.4821440279484
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=41.7410720139742
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=141.741072013974
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=70.8705360069871
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=35.4352680034935
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=135.435268003494
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=67.7176340017468
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=33.8588170008734
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=133.858817000873
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=66.9294085004367
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=33.4647042502183
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=133.464704250218
+;  kp=0
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:04): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=66.7323521251092
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=166.732352125109
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=83.3661760625546
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=41.6830880312773
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=141.683088031277
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=70.8415440156386
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=170.841544015639
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.4207720078193
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.7103860039097
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.71038600391
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.3551930019548
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=171.355193001955
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.6775965009774
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.8387982504887
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.838798250489
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.4193991252444
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=171.419399125244
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=85.7096995626222
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=42.8548497813111
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=142.854849781311
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=71.4274248906555
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:07): Laser controller 1: Set status=ON
+;  Scan position: line=1 dir=down
+;  modulation high voltage = 4 V
+;  modulation low voltage = 0 V
+;(at 2017/06/26 14:10:09): Start scan
+;  Scan position: line=32 dir=up
+;(at 2017/06/26 14:10:27): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:10:27): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:27): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:27): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:10:27): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:27): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:27): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 32x32 pixels
+;  Scan center = (0, 0)
+;  Scan size = (50 x 50)
+;  Scan angle = 0°
+;  Scan speed = 2 lines/sec
+;(at 2017/06/26 14:10:27): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 32x32 pixels
+;  Scan center = (0, 0)
+;  Scan size = (50 x 50)
+;  Scan angle = 0°
+;  Scan speed = 2 lines/sec
+;(at 2017/06/26 14:10:29): Start scan
+;  Scan position: line=32 dir=up
+;(at 2017/06/26 14:10:46): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:10:46): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:46): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:46): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:10:46): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:46): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:10:46): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 32x32 pixels
+;  Scan center = (0, 0)
+;  Scan size = (50 x 50)
+;  Scan angle = 0°
+;  Scan speed = 2 lines/sec
+;(at 2017/06/26 14:10:46): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 32x32 pixels
+;  Scan center = (0, 0)
+;  Scan size = (50 x 50)
+;  Scan angle = 0°
+;  Scan speed = 2 lines/sec
+;(at 2017/06/26 14:10:47): Start scan
+;  Scan position: line=32 dir=up
+;(at 2017/06/26 14:11:05): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 256x256 pixels
+;  Scan center = (0, 0)
+;  Scan size = (15 x 15)
+;  Scan angle = 0°
+;  Scan speed = 2 lines/sec
+;(at 2017/06/26 14:11:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:11:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:11:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:11:05): Apply parameters (SetFeedback)
+;  Scan position: line=1 dir=down
+;  feedbackmode=4
+;  setpoint=85
+;  ki=2200
+;  kp=0
+;(at 2017/06/26 14:11:05): Set cantilever drive voltage
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:11:05): Set cantilever drive voltage (with specified scale)
+;  Scan position: line=1 dir=down
+;  voltage = 0.0451680442801411
+;(at 2017/06/26 14:11:05): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 256x256 pixels
+;  Scan center = (0, 0)
+;  Scan size = (15 x 15)
+;  Scan angle = 0°
+;  Scan speed = 0.25 lines/sec
+;(at 2017/06/26 14:11:05): Apply parameters (LineInit)
+;  Scan position: line=1 dir=down
+;  Image resolution = 256x256 pixels
+;  Scan center = (0, 0)
+;  Scan size = (15 x 15)
+;  Scan angle = 0°
+;  Scan speed = 0.25 lines/sec
+;(at 2017/06/26 14:11:08): Start scan
+;  Scan position: line=256 dir=up
+;(at 2017/06/26 14:26:25): Completed scan

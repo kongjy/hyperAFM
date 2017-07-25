@@ -1,0 +1,8 @@
+<datasw type="spectrum">
+  <subcontents item="spectra_markers_0_1"/>
+  <subcontents item="params_spectra_0_1"/>
+  <subcontents item="functions_display_0_1">
+    <function name="spectrum_smooth" sizeWindow="9"/>
+  </subcontents>
+  <subcontents item="functions_data_0_1"/>
+</datasw>
