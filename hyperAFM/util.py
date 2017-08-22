@@ -4,6 +4,7 @@ from skimage import feature
 from skimage import transform
 import io
 import numpy as np
+import pandas as pd
 import h5py
 import os
 
@@ -43,7 +44,7 @@ class HyperImage():
         directory = os.path.dirname(full_path)
         
         # Get the scan parameters and channel details.
-        self.parms, channels =  read_anfatec_params(full_path)
+        self.parms, channels, e =  read_anfatec_params(full_path)
         
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
@@ -267,19 +268,19 @@ def read_anfatec_params(path):
                     continue
                 
                 # This string indicates that we have reached a channel description.
-                if row.endswith('FileDescBegin'):
+                if row.endswith('Begin') & row.startswith('File'):
                     inside_description = True
                     continue
                 if row.endswith('SpectrumDescBegin'):
                     inside_description = True
                     continue
-                if row.endswith('FileDescEnd'):
+                if row.endswith('End') & row.startswith('File'):
                     file_descriptions.append(parameters)
                     parameters = {}
                     inside_description = False
                 if row.endswith('SpectrumDescEnd'):
                     spectra_descriptions.append(parameters)
-                    parameters= {}
+                    parameters = {}
  
                 #split between :; creates list of two elements 
                 split_row = row.split(':')
