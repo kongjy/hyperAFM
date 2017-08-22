@@ -155,11 +155,12 @@ class PiFMImage():
         
         
         self.channel_names = []
+        self.spectra_file = []
         full_path = os.path.realpath(path)
         directory = os.path.dirname(full_path)
         
         # Get the scan parameters and channel details.
-        self.parms, channels =  read_anfatec_params(full_path)
+        self.parms, channels, spectra =  read_anfatec_params(full_path)
        
         x_pixel = int(self.parms['xPixel'])
         y_pixel = int(self.parms['yPixel'])
@@ -176,9 +177,17 @@ class PiFMImage():
             #for i,line in enumerate(np.split(data,y_pixel)):
             #    for j, pixel in enumerate(np.split(line,x_pixel)):
             #            channel_data[j,i,:] = (scaling*pixel)
-
+        point_spectra = []
+        for i in range(len(spectra)):
+            self.spectra_file.append(spectra[i]['FileName'])
+            data = pd.read_csv(os.path.join(directory,spectra[i]['FileName']), delimiter = '\t')
+            data.columns = ['wavenumber' , 'intensity']
+            point_spectra.append(data)
+        
+        
         # Here's how we access the different hyper and channel data.
         self.channel_data = channel_data
+        self.point_spectra = point_spectra
 
 def align_images(image, offset_image):
     
@@ -239,9 +248,11 @@ def read_anfatec_params(path):
         
     """
     file_descriptions = []
+    spectra_descriptions = []
     scan_params = {}
     parameters = {}
     inside_description = False
+
 
     with io.open(path,  'r', encoding = "ISO-8859-1") as f:
         
@@ -256,15 +267,20 @@ def read_anfatec_params(path):
                     continue
                 
                 # This string indicates that we have reached a channel description.
-                if row.endswith('Begin'):
+                if row.endswith('FileDescBegin'):
                     inside_description = True
                     continue
-
-                if row.endswith('End'):
+                if row.endswith('SpectrumDescBegin'):
+                    inside_description = True
+                    continue
+                if row.endswith('FileDescEnd'):
                     file_descriptions.append(parameters)
                     parameters = {}
                     inside_description = False
-                   
+                if row.endswith('SpectrumDescEnd'):
+                    spectra_descriptions.append(parameters)
+                    parameters= {}
+ 
                 #split between :; creates list of two elements 
                 split_row = row.split(':')
                 
@@ -276,9 +292,9 @@ def read_anfatec_params(path):
                     parameters[split_row[0]] = split_row[-1]
                 else:
                     scan_params[split_row[0]] = split_row[-1]
-                
-                
-    return scan_params, file_descriptions
+            
+                    
+    return scan_params, file_descriptions, spectra_descriptions
 
 
 def load_hyper_numpy(folder_path):
