@@ -30,6 +30,33 @@ def load_ibw(path, flatten=True):
     data = np.rot90(data)    
     return data
 
+def HyperSlice(hyper, start, stop):
+    """
+    Sums a range of wavenumbers within a hyperspectral image. 
+    Paramters: 
+        hyper: class from HyperImage
+        start: int
+            start wavenumber
+        stop: int
+            stop wavenumber
+    Returns: 
+        slc: ndarray
+            sum of intensities between the specified start and
+            stop wavenumbers 
+        
+    """
+    wavenumber = hyper.wavelength_data.tolist()
+    wavenumberlist = [int(x) for x in wavenumber]
+    start_index = wavenumberlist.index(start)
+    stop_index = wavenumberlist.index(stop) 
+    span = stop_index - start_index
+    slc = hyper.hyper_image[:,:,start_index]
+    for i in range(span):
+        slc += hyper.hyper_image[:,:,start_index+i]
+    
+    return slc
+    
+    
 
 class HyperImage():
     """
@@ -149,14 +176,23 @@ class PiFMImage():
         path: Path to ANFATEC parameter file. This is the text file that
         is generated with each scan.
         
-    Output: 
-
+    Attributes: 
+        channel_names: list of all data channels in channel_data 
+        channel_data: a resolution x resolution x no. channel array. 
+                    channel_data[:,:,0] will return the matrix 
+                    corresponding to the channel in channel_names[0]
+        parms: a dictionary of all scan parameters 
+        spectra_files: list of filenames containing point spectra 
+        point_spectra: list of df containing point spectra associated 
+                        with scan. point_spectra[0] will return the df
+                        corresponding to the file in spectra_file[0]
+                    
     """
     def __init__(self, path):
         
         
         self.channel_names = []
-        self.spectra_file = []
+        self.spectra_files = []
         full_path = os.path.realpath(path)
         directory = os.path.dirname(full_path)
         
@@ -171,7 +207,8 @@ class PiFMImage():
         for i, channel in enumerate(channels):
             
             self.channel_names.append(channel['Caption'])
-            data = np.fromfile(os.path.join(directory,channel['FileName']),dtype='i4')
+            data = np.fromfile(os.path.join(directory,channel['FileName']),\
+                               dtype='i4')
             #scaling = float(channel['Scale'])
             channel_data[:,:,i] = np.reshape(data, (256,256))
             
@@ -181,7 +218,8 @@ class PiFMImage():
         point_spectra = []
         for i in range(len(spectra)):
             self.spectra_file.append(spectra[i]['FileName'])
-            data = pd.read_csv(os.path.join(directory,spectra[i]['FileName']), delimiter = '\t')
+            data = pd.read_csv(os.path.join(directory,spectra[i]['FileName']),\
+                               delimiter = '\t')
             data.columns = ['wavenumber' , 'intensity']
             point_spectra.append(data)
         
