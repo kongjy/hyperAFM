@@ -217,7 +217,7 @@ class PiFMImage():
             #            channel_data[j,i,:] = (scaling*pixel)
         point_spectra = []
         for i in range(len(spectra)):
-            self.spectra_file.append(spectra[i]['FileName'])
+            self.spectra_files.append(spectra[i]['FileName'])
             data = pd.read_csv(os.path.join(directory,spectra[i]['FileName']),\
                                delimiter = '\t')
             data.columns = ['wavenumber' , 'intensity']
