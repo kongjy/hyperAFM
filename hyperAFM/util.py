@@ -45,7 +45,7 @@ def hyperslice(hyper, start, stop, rows = None , cols = None):
     	    starting and ending indices for rows within image 
             be displayed. If all rows are desired, can 
             leave blank.  
-        cols: tuple
+        cols: tuple, (start, stop)
             same as above, but for columns. 
     Returns
     -------
@@ -77,9 +77,9 @@ def hyperslice(hyper, start, stop, rows = None , cols = None):
 
 class HyperImage():
     """
-    A class representing a Hyper image. Give the path to the Hyper data, and 
-    receive a class that stores this information as a hyper image, and series 
-    of channel images.
+    A class representing a Hyper image. Give the path to the Hyper data,
+    and receive a class that stores this information as a hyper image,
+    and series of channel images.
     """
     def __init__(self, path):
         
