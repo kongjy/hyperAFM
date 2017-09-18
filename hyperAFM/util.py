@@ -30,29 +30,46 @@ def load_ibw(path, flatten=True):
     data = np.rot90(data)    
     return data
 
-def HyperSlice(hyper, start, stop):
+def hyperslice(hyper, start, stop, rows = None , cols = None):
     """
     Sums a range of wavenumbers within a hyperspectral image. 
-    Paramters: 
+    
+    Paramters 
+    ----------
         hyper: class from HyperImage
         start: int
             start wavenumber
         stop: int
             stop wavenumber
-    Returns: 
+        rows: tuple, (start, stop)
+    	    starting and ending indices for rows within image 
+            be displayed. If all rows are desired, can 
+            leave blank.  
+        cols: tuple
+            same as above, but for columns. 
+    Returns
+    -------
         slc: ndarray
             sum of intensities between the specified start and
             stop wavenumbers 
         
     """
+    #show entire hyper image if no tuples are passed into arguments
+    if rows == None: 
+        rows = (0,hyper.channel_data.shape[0])
+    if cols == None:
+        cols = (0, hyper.channel_data.shape[1])        
+
     wavenumber = hyper.wavelength_data.tolist()
     wavenumberlist = [int(x) for x in wavenumber]
-    start_index = wavenumberlist.index(start)
-    stop_index = wavenumberlist.index(stop) 
+    #flip start and stop indices because of the 
+    #way the wavenumber data is stored. 
+    start_index = wavenumberlist.index(stop)
+    stop_index = wavenumberlist.index(start) 
     span = stop_index - start_index
-    slc = hyper.hyper_image[:,:,start_index]
+    slc = hyper.hyper_image[rows[0]:rows[1],cols[0]:cols[1],start_index]
     for i in range(span):
-        slc += hyper.hyper_image[:,:,start_index+i]
+        slc += hyper.hyper_image[rows[0]:rows[1],cols[0]:cols[1],start_index+i]
     
     return slc
     
@@ -60,8 +77,9 @@ def HyperSlice(hyper, start, stop):
 
 class HyperImage():
     """
-    A class representing a Hyper image. Give the path to the Hyper data, and receive a class that 
-    stores this information as a hyper image, and series of channel images.
+    A class representing a Hyper image. Give the path to the Hyper data, and 
+    receive a class that stores this information as a hyper image, and series 
+    of channel images.
     """
     def __init__(self, path):
         
